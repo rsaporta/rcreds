@@ -129,5 +129,7 @@ readCredentialsFromFile <- function(file=".credentials.creds", key=readKeyFromFi
   json <- rawToChar(creds[creds>0])
 
   ret <- jsonlite::fromJSON(json)
+
+  return(ret)
 }
 
