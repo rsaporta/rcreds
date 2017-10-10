@@ -31,9 +31,9 @@ createKey <- function(bytes=32, depth=8, seed=NULL, verbose=getOption("verbose.r
 
 #' @export
 saveKey <- function(
-  , file_full_path     = file.path(folder, file_name)
-  , file_name          = getOption("rcreds.key.file_name", default="'.crypt_key.rds'")
-  , folder             = getOption("rcreds.key.folder",    default="'~/.ssh/rcreds_keys'")
+    file_full_path     = file.path(folder, file_name)
+  , file_name          = getOption("rcreds.key.file_name", default=".crypt_key.rds")
+  , folder             = getOption("rcreds.key.folder",    default="~/.rcreds/key_files")
   , key # no default value. If missing will be created using createKey()
   , bytes              = 32
   , depth              = 8
@@ -48,7 +48,7 @@ saveKey <- function(
       warning("arguments 'bytes', 'depth', and 'seed' are only used when 'key' is missing. Otherwise they are ignored.")
 
   if (!file.exists(dirname(file_full_path)))
-    dir.create(dirname(file_full_path), showWarnings=FALSE, recursive=TRUE, mode=0775)
+    dir.create(dirname(file_full_path), showWarnings=FALSE, recursive=TRUE, mode="0775")
 
   if (file.exists(file_full_path)) {
     if (!zArchive_existing && !overwrite_existing)
@@ -64,16 +64,16 @@ saveKey <- function(
 
 #' @export
 readKeyFromFile <- function(
-  , file_full_path = file.path(folder, file_name)
-  , file_name      = getOption("rcreds.key.file_name", default="'.crypt_key.rds'")
-  , folder         = getOption("rcreds.key.folder",    default="'~/.ssh/rcreds_keys'")
+    file_full_path = file.path(folder, file_name)
+  , file_name      = getOption("rcreds.key.file_name", default=".crypt_key.rds")
+  , folder         = getOption("rcreds.key.folder",    default="~/.rcreds/key_files")
   , dont_create    = FALSE
   , verbose        = getOption("verbose.rcreds", default=TRUE)
 ) {
   if (!file.exists(file_full_path)) {
     if (verbose)
       message("Key File does not exist.  Will create one")
-    saveKey(file=file_full_path)
+    saveKey(file_full_path = file_full_path)
   }
 
   readRDS(file_full_path)
@@ -85,19 +85,19 @@ writeCredentialsToFile <- function(
     ...
   , file_full_path     = file.path(folder, file_name)
   , file_name          = getOption("rcreds.file_name", default=".credentials.creds")
-  , folder             = getOption("rcreds.folder",    default="~/.ssh/rcreds/")
+  , folder             = getOption("rcreds.folder",    default="~/.rcreds/credential_files")
   , zArchive_existing  = TRUE
   , overwrite_existing = FALSE
   , key                = readKeyFromFile()
 ) {
-  stopifnot(requireNamespace(digest))
-  stopifnot(requireNamespace(jsonlite))
+  stopifnot(requireNamespace("digest"))
+  stopifnot(requireNamespace("jsonlite"))
 
   if ((!missing(file_name) || !missing(folder))  &&  !missing(file_full_path))
     warning("Parameters 'file_name' and 'folder' are ignored when 'file_full_path' is set explicitly")
 
   if (!file.exists(dirname(file_full_path)))
-    dir.create(dirname(file_full_path), showWarnings=FALSE, recursive=TRUE)
+    dir.create(dirname(file_full_path), showWarnings=FALSE, recursive=TRUE, mode="0775")
 
   if (file.exists(file_full_path)) {
     if (!zArchive_existing && !overwrite_existing)
@@ -166,13 +166,13 @@ writeCredentialsToFile <- function(
 #' @export
 readCredentialsFromFile <- function(
   # file=".credentials.creds", key=readKeyFromFile()) {
-  , file_full_path = file.path(folder, file_name)
+    file_full_path = file.path(folder, file_name)
   , file_name      = getOption("rcreds.file_name", default=".credentials.creds")
-  , folder         = getOption("rcreds.folder",    default="~/.ssh/rcreds/")
+  , folder         = getOption("rcreds.folder",    default="~/.rcreds/credential_files")
   , key            = readKeyFromFile()
 ) {
-  stopifnot(requireNamespace(digest))
-  stopifnot(requireNamespace(jsonlite))
+  stopifnot(requireNamespace("digest"))
+  stopifnot(requireNamespace("jsonlite"))
 
   if ((!missing(file_name) || !missing(folder))  &&  !missing(file_full_path))
     warning("Parameters 'file_name' and 'folder' are ignored when 'file_full_path' is set explicitly")
@@ -205,7 +205,7 @@ readCredentialsFromFile <- function(
   stamp <- format(Sys.time(), format=".zarchived_%Y%m%d_%H%M%S")
   file_zArchived <- file_full_path %>% {file.path(dirname(.), "zArchived", basename(.))} %>% paste0(stamp)
 
-  dir.create(path=dirname(file_zArchived), showWarnings = FALSE, mode=0775)
+  dir.create(path=dirname(file_zArchived), showWarnings = FALSE, mode="0775")
   ret <- try(file.rename(from=file_full_path, to=file_zArchived), silent=TRUE)
 
   ## CHECK FOR ERRORS AND THAT FILE WAS MOVED
@@ -218,3 +218,23 @@ readCredentialsFromFile <- function(
     message("existing file moved to:  '", file_zArchived, "'")
   return(file_zArchived)
 }
+
+
+#' @export
+show_default_rcreds_file <- function() {
+  file_name          = getOption("rcreds.file_name", default=".credentials.creds")
+  folder             = getOption("rcreds.folder",    default="~/.rcreds/credential_files")
+  file_full_path     = file.path(folder, file_name)
+
+  return(file_full_path)
+}
+
+#' @export
+show_default_rcreds_key_file <- function() {
+  file_name          = getOption("rcreds.key.file_name", default=".crypt_key.rds")
+  folder             = getOption("rcreds.key.folder",    default="~/.rcreds/key_files")
+  file_full_path     = file.path(folder, file_name)
+
+  return(file_full_path)
+}
+

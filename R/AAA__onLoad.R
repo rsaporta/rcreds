@@ -10,12 +10,15 @@
   ## Code adapted from the data.table package
   opts = c(  
             ## Default Location of binary credential-files
-              "rcreds.folder"         = "'~/.ssh/rcreds'"
+              "rcreds.folder"         = "'~/.rcreds/credential_files'"
             , "rcreds.file_name"      = "'.credentials.creds'"
  
             ## Default Location of Keys
-            , "rcreds.key.folder"     = "'~/.ssh/rcreds_keys'"
+            , "rcreds.key.folder"     = "'~/.rcreds/key_files'"
             , "rcreds.key.file_name"  = "'.crypt_key.rds'"
+
+            , "rcreds.db.folder"      = "'~/.rcreds/db_credential_files'"
+            , "rcreds.db.file_name"   = "'.db_credentials.creds'"
 
             , "verbose.rcreds"        = "TRUE"
           )
@@ -30,5 +33,3 @@
   
   return(invisible(TRUE))
 }
-
-
