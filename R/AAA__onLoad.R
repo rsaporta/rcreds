@@ -8,7 +8,7 @@
   ##   Actual string values should have quotes inside the quotes
   ##     eg  "\"an example string\"" or "'an example string'"
   ## Code adapted from the data.table package
-  opts = c(  "rcreds.folder"       = "'~/.ssh/rcreds/'"
+  opts = c(  "rcreds.folder"       = "'~/.ssh/rcreds'"
            , "rcreds.file_name"    = "'.credentials.creds'"
           )
   for (i in setdiff(names(opts),names(options()))) {
