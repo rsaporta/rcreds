@@ -1,6 +1,6 @@
 .onLoad <- function(libname, pkgname, verbose=getOption("verbose.onLoad", default=TRUE)) {
   if (verbose)
-    cat("Running .onLoad() from ", pkgname, "  ||   [turn off messaging with options(verbose.onLoad = FALSE) ]\n")
+    cat("Running .onLoad() from ", pkgname, "  ||   [turn off this message with options(verbose.onLoad = FALSE) ]\n")
 
   ## -------------------- OPTIONS FOR PACKAGE ----------------------- ##
   ## Options to Load.  
