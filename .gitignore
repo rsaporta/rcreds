@@ -1,0 +1,57 @@
+## For .gitignore syntax reference see: 
+##   http://bit.ly/gitignore_so
+##   https://git-scm.com/docs/gitignore
+##   https://www.atlassian.com/git/tutorials/gitignore
+
+## ----------- BACKUP AND OTHER FILES NOT TO PUSH ------------- ##
+## plot files
+plots
+
+## Specific data or backup folders for generic R projects
+ImageSaves
+ingest/ftp_data
+ingest/zArchive
+out/zArchive
+log/zArchive
+# but not all zArchive, eg src/zArchive is OK
+
+## Credentials Folder
+src/creds
+
+## ----------- GENERIC SYSTEM, ETC ------------- ##
+## Mac OS Stuff
+.DS_Store
+*.AppleDouble
+*.LSOverride
+## Ignore Sublime text stuff
+# cache files for sublime text
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+# workspace files are user-specific and may contain sensitive information
+*.sublime-workspace
+# sftp configuration file
+sftp-config.json
+# Excel files
+*.xlsx
+*.xls
+*.xlst
+## compressed files & tarballs
+*.zip
+*.tar
+*.tar.gz
+## other binary files
+*.pdf
+*.png
+*.jpg
+*.gif
+
+## ---------------- R SPECIFIC FILES ---------------- ##
+*.Rhistory
+*.Rproj.user
+*.RData
+*.RDS
+
+## ---------------- FILES SPECIFIC TO THIS PROJECT ---------------- ##
+
+
