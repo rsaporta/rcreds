@@ -4,7 +4,7 @@ Version: 0.0.1
 Authors@R: Rick Saporta <RickSaporta@gmail.com> [aut, cre], Mike Reca <michael.reca@vydia.com> [ctb]
 Description: What the package does (one paragraph).
 Depends:
-    R (>= 3.3.3)
+    R (>= 3.3.1)
 License: MIT + file LICENSE
 Suggests:
     data.table,
