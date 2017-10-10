@@ -8,8 +8,16 @@
   ##   Actual string values should have quotes inside the quotes
   ##     eg  "\"an example string\"" or "'an example string'"
   ## Code adapted from the data.table package
-  opts = c(  "rcreds.folder"       = "'~/.ssh/rcreds'"
-           , "rcreds.file_name"    = "'.credentials.creds'"
+  opts = c(  
+            ## Default Location of binary credential-files
+              "rcreds.folder"         = "'~/.ssh/rcreds'"
+            , "rcreds.file_name"      = "'.credentials.creds'"
+ 
+            ## Default Location of Keys
+            , "rcreds.key.folder"     = "'~/.ssh/rcreds_keys'"
+            , "rcreds.key.file_name"  = "'.crypt_key.rds'"
+
+            , "verbose.rcreds"        = "TRUE"
           )
   for (i in setdiff(names(opts),names(options()))) {
       eval(parse(text=paste("options(",i,"=",opts[i],")",sep="")))
