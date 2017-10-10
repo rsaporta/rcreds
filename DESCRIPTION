@@ -1,7 +1,9 @@
 Package: rcreds
 Title: What the Package Does (one line, title case)
 Version: 0.0.1
-Authors@R: Rick Saporta <RickSaporta@gmail.com> [aut, cre], Mike Reca <michael.reca@vydia.com> [ctb]
+Authors@R: c(person(given="Rick", family="Saporta", email="RickSaporta@gmail.com", role=c("aut","cre"), comment=NULL)
+           , person(given="Mike", family="Reca",   email="michael.reca@vydia.com", role=c("ctb"), comment=NULL)
+    )
 Description: What the package does (one paragraph).
 Depends:
     R (>= 3.3.1)
