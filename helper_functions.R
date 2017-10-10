@@ -19,3 +19,17 @@
   return(file_zArchived)
 }
 
+.confirm_is_string_of_length1 <- function(string, nm_for_err_msg) {
+  if (missing(nm_for_err_msg)) {
+    nm_for_err_msg <- as.character(substitute(string))
+  }
+
+  if (length(string) != 1)
+    stop("Invalid input for '", nm_for_err_msg, "'.  It should be a non-empty string of length 1 -- it has length ", length(string))
+  if (!is.character(string))
+    stop("Invalid input for '", nm_for_err_msg, "'.  It should be a non-empty string of length 1 -- it is an object of class \"", class(string)[[1L]], "\"")
+  if (!nzchar(string))
+    stop("Invalid input for '", nm_for_err_msg, "'.  It should be a non-empty string of length 1 -- it is an empty string.")
+
+  return(invisible(TRUE))
+}
