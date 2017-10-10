@@ -12,7 +12,7 @@
 
 ## Encryption functions
 #' @export
-createKey <- function(bytes=32, depth=8, seed=NULL) {
+createKey <- function(bytes=32, depth=8, seed=NULL, verbose=getOption("verbose.rcreds", default=TRUE)) {
   ## Don't set seed unless given explicitly
   if (!is.null(seed))
     set.seed(seed)
@@ -20,44 +20,93 @@ createKey <- function(bytes=32, depth=8, seed=NULL) {
   if (!(bytes %in% c(16, 24, 32)))
     warning("bytes should generally be either 16, 24, 32")
 
+  if (isTRUE(verbose))
+    message(sprintf("Creating new key with bytes = %i  and  depth = %i.  seed was %s.", bytes, depth, ifelse(is.null(seed), "not set", seed)))
+
   seq(from=0, to=2^depth-1) %>%
     sample(size=32, replace=TRUE) %>%
     as.raw()
 }
 
+
 #' @export
-saveKey <- function(file=".crypt_key.rds", key, bytes=32, depth=8, seed=NULL) {
+saveKey <- function(
+  , file_full_path     = file.path(folder, file_name)
+  , file_name          = getOption("rcreds.key.file_name", default="'.crypt_key.rds'")
+  , folder             = getOption("rcreds.key.folder",    default="'~/.ssh/rcreds_keys'")
+  , key # no default value. If missing will be created using createKey()
+  , bytes              = 32
+  , depth              = 8
+  , seed               = NULL
+  , zArchive_existing  = TRUE
+  , overwrite_existing = FALSE
+) {
 
   if (missing(key))
     key <- createKey(bytes=bytes, depth=depth, seed=seed)
   else if (!missing(bytes) |  !missing(depth)  |  !missing(seed))
       warning("arguments 'bytes', 'depth', and 'seed' are only used when 'key' is missing. Otherwise they are ignored.")
 
-  if (!file.exists(dirname(file)))
-    dir.create(dirname(file), showWarnings=FALSE, recursive=TRUE)
+  if (!file.exists(dirname(file_full_path)))
+    dir.create(dirname(file_full_path), showWarnings=FALSE, recursive=TRUE, mode=0775)
 
-  saveRDS(key, file=file)
+  if (file.exists(file_full_path)) {
+    if (!zArchive_existing && !overwrite_existing)
+      stop("file '", file_full_path, "' already exists.\n  HINT:  set `zArchive_existing = TRUE` to move it or `overwrite_existing = TRUE` to overwrite it")
+    if (zArchive_existing)
+      .zArchive_existing_file(file_full_path)
+  }
+
+  saveRDS(key, file=file_full_path)
 
   return(invisible(key))
 }
 
 #' @export
-readKeyFromFile <- function(file=".crypt_key.rds", dont_create=FALSE) {
-  if (!file.exists(file)) {
-    message("Key File does not exist.  Will create one")
-    saveKey(file=file)
+readKeyFromFile <- function(
+  , file_full_path = file.path(folder, file_name)
+  , file_name      = getOption("rcreds.key.file_name", default="'.crypt_key.rds'")
+  , folder         = getOption("rcreds.key.folder",    default="'~/.ssh/rcreds_keys'")
+  , dont_create    = FALSE
+  , verbose        = getOption("verbose.rcreds", default=TRUE)
+) {
+  if (!file.exists(file_full_path)) {
+    if (verbose)
+      message("Key File does not exist.  Will create one")
+    saveKey(file=file_full_path)
   }
 
-  readRDS(file)
+  readRDS(file_full_path)
 }
 
+
 #' @export
-writeCredentialsToFile <- function(..., file=".credentials.creds", key=readKeyFromFile()) {
+writeCredentialsToFile <- function(
+    ...
+  , file_full_path     = file.path(folder, file_name)
+  , file_name          = getOption("rcreds.file_name", default=".credentials.creds")
+  , folder             = getOption("rcreds.folder",    default="~/.ssh/rcreds/")
+  , zArchive_existing  = TRUE
+  , overwrite_existing = FALSE
+  , key                = readKeyFromFile()
+) {
   stopifnot(requireNamespace(digest))
   stopifnot(requireNamespace(jsonlite))
 
-  if (!file.exists(dirname(file)))
-    dir.create(dirname(file), showWarnings=FALSE, recursive=TRUE)
+  if ((!missing(file_name) || !missing(folder))  &&  !missing(file_full_path))
+    warning("Parameters 'file_name' and 'folder' are ignored when 'file_full_path' is set explicitly")
+
+  if (!file.exists(dirname(file_full_path)))
+    dir.create(dirname(file_full_path), showWarnings=FALSE, recursive=TRUE)
+
+  if (file.exists(file_full_path)) {
+    if (!zArchive_existing && !overwrite_existing)
+      stop("file '", file_full_path, "' already exists.\n  HINT:  set `zArchive_existing = TRUE` to move it or `overwrite_existing = TRUE` to overwrite it")
+    if (zArchive_existing)
+      .zArchive_existing_file(file_full_path)
+  }
+
+
 
   ## ---------------------------------------------------------------------------- ##
   ## THIS SECTION SIMPLY TAKES THE dots AND CONVERTS THEM TO A LIST WITH NAMES
@@ -111,20 +160,34 @@ writeCredentialsToFile <- function(..., file=".credentials.creds", key=readKeyFr
   creds_encrypted <- aes_encryptor$encrypt(creds_json_as_raw)
 
   ## Write to disk
-  writeBin(creds_encrypted, con=file)
+  writeBin(creds_encrypted, con=file_full_path)
 }
 
 #' @export
-readCredentialsFromFile <- function(file=".credentials.creds", key=readKeyFromFile()) {
+readCredentialsFromFile <- function(
+  # file=".credentials.creds", key=readKeyFromFile()) {
+  , file_full_path = file.path(folder, file_name)
+  , file_name      = getOption("rcreds.file_name", default=".credentials.creds")
+  , folder         = getOption("rcreds.folder",    default="~/.ssh/rcreds/")
+  , key            = readKeyFromFile()
+) {
   stopifnot(requireNamespace(digest))
   stopifnot(requireNamespace(jsonlite))
 
-  dat <- readBin(con=file, what="raw", n=1e6)
-  ## CREATE THE ENCRYPTION
+  if ((!missing(file_name) || !missing(folder))  &&  !missing(file_full_path))
+    warning("Parameters 'file_name' and 'folder' are ignored when 'file_full_path' is set explicitly")
+
+  ## Read in the binary data
+  dat <- readBin(con=file_full_path, what="raw", n=1e6)
+
+  ## Decrypt the data to text
   aes_encryptor <- digest::AES(key=key, mode="ECB")
   creds <- aes_encryptor$decrypt(cipher=dat, raw=TRUE)
 
+  ## &&&&&&&&&&&&  TODO &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
   ## Since we had padded with zeros, remove those
+  ## TODO:  only remove zeros from start of creds
+        # zeros <- creds == 0
   creds <- creds[creds > 0]
   json <- rawToChar(creds[creds>0])
 
@@ -133,3 +196,25 @@ readCredentialsFromFile <- function(file=".credentials.creds", key=readKeyFromFi
   return(ret)
 }
 
+
+
+## Do not export
+## More robust functions exist in rsuworkspace package
+## namely  rsuworkspace::zArchive()  and rsuworkspace::zArchive_if_flagged()
+.zArchive_existing_file <- function(file_full_path, verbose=getOption("verbose.rcreds", default=TRUE)) {
+  stamp <- format(Sys.time(), format=".zarchived_%Y%m%d_%H%M%S")
+  file_zArchived <- file_full_path %>% {file.path(dirname(.), "zArchived", basename(.))} %>% paste0(stamp)
+
+  dir.create(path=dirname(file_zArchived), showWarnings = FALSE, mode=0775)
+  ret <- try(file.rename(from=file_full_path, to=file_zArchived), silent=TRUE)
+
+  ## CHECK FOR ERRORS AND THAT FILE WAS MOVED
+  if (inherits(ret, "try-error"))
+    stop("attempting to archive the file with function file.rename() failed with the following error:\n     ", as.character(ret))
+  if (file.exists(file_full_path))
+    stop("Attempted to zArchive the file '", file_full_path, "', but failed")
+
+  if (verbose)
+    message("existing file moved to:  '", file_zArchived, "'")
+  return(file_zArchived)
+}
