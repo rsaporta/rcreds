@@ -3,9 +3,16 @@ Title: What the Package Does (one line, title case)
 Version: 0.0.1
 Authors@R: Rick Saporta <RickSaporta@gmail.com> [aut, cre], Mike Reca <michael.reca@vydia.com> [ctb]
 Description: What the package does (one paragraph).
-Depends: R (>= 3.3.3)
+Depends:
+    R (>= 3.3.3)
 License: MIT + file LICENSE
-Suggests: rsugeneral, data.table, magrittr
+Suggests:
+    data.table,
+    rsugeneral
 Encoding: UTF-8
 LazyData: TRUE
 description: What the package does (one paragraph).
+RoxygenNote: 5.0.1
+Imports: jsonlite,
+    digest,
+    magrittr
