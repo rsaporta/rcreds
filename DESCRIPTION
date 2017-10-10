@@ -1,19 +1,17 @@
 Package: rcreds
-Title: What the Package Does (one line, title case)
+Title: Tools to use secure credentials within R scripts.
 Version: 0.0.1
-Authors@R: c(person(given="Rick", family="Saporta", email="RickSaporta@gmail.com", role=c("aut","cre"), comment=NULL)
-           , person(given="Mike", family="Reca",   email="michael.reca@vydia.com", role=c("ctb"), comment=NULL)
+Authors@R: c(person(given="Rick", family="Saporta", email="RickSaporta@gmail.com",  role=c("aut","cre"), comment=NULL)
+           , person(given="Mike", family="Reca",    email="michael.reca@vydia.com", role=c("ctb"),       comment=NULL)
     )
-Description: What the package does (one paragraph).
+Description: rcreds provides tools to write a list of credentials to an encrypted file and later read from that file to use in scripts. The goal is to have a useful alternative to including username/passwords as part of a script or in the clear in a text file.
 Depends:
     R (>= 3.3.1)
 License: MIT + file LICENSE
 Suggests:
-    data.table,
     rsugeneral
 Encoding: UTF-8
 LazyData: TRUE
-description: What the package does (one paragraph).
 RoxygenNote: 6.0.1
 Imports: jsonlite,
     digest,
