@@ -22,7 +22,7 @@ createKey <- function(bytes=32, depth=8, seed=NULL, verbose=getOption("verbose.r
     message(sprintf("Creating new key with bytes = %i  and  depth = %i.  seed was %s.", bytes, depth, ifelse(is.null(seed), "not set", seed)))
 
   seq(from=0, to=2^depth-1) %>%
-    sample(size=32, replace=TRUE) %>%
+    sample(size=bytes, replace=TRUE) %>%
     as.raw()
 }
 
