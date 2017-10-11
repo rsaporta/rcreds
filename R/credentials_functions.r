@@ -107,6 +107,7 @@ writeCredentialsToFile <- function(
   ## THOSE DOTS THAT WERE EXPLICITLY GIVEN A NAME, LEAVE AS IS;
   ## THOSE THAT WERE NOT GIVEN A NAME, IF THERE WAS A VARIABLE 
   ##   USED IN IT'S PLACE, USE THE NAME OF THE VARIABLE
+  ## ^^^^^  TODO -- warn on this ^^^^^^^^^^^
   ## OTHERWISE, LEAVE BLANK
   ## ---------------------------------------------------------------------------- ##
   ## Check if only one item was sent to (...) and it is a list.
@@ -133,9 +134,6 @@ writeCredentialsToFile <- function(
   }
   ## ---------------------------------------------------------------------------- ##
 
-
-  message("names of creds:")
-  catnn(names(creds))
 
   creds_as_json_object <- jsonlite::toJSON(creds)
 
