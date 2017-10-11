@@ -12,9 +12,62 @@
 
 
 #' @export
+readDBCredentialsFromFile <- function(
+    file_full_path     = "auto"
+  , info.file_name     = ""
+  , file_name          = getOption("rcreds.db.file_name", default=".db_credentials.creds")
+  , folder             = getOption("rcreds.db.folder",    default="~/.rcreds/db_credential_files")
+  , key                = readKeyFromFile()
+) {
+  args <- collectArgs()
+  do.call(readCredentialsFromFile, args)
+}
+
+#' @export
+#' @example  writeDBCredentialsToFile()
+writeDBCredentialsToFile <- function(
+    dbbname            = "dev"
+  , host               = "localhost"
+  , port               = 5432
+  , username           = "you_forgot_to_specify_username"
+  , password           = "too_many_secrets"
+  , file_full_path     = "auto"
+  , info.file_name     = ""
+  , file_name          = getOption("rcreds.db.file_name", default=".db_credentials.creds")
+  , folder             = getOption("rcreds.db.folder",    default="~/.rcreds/db_credential_files")
+  , zArchive_existing  = TRUE
+  , overwrite_existing = FALSE
+  , key                = readKeyFromFile()
+  , ...
+) {
+
+  stopifnot(requireNamespace("digest"))
+  stopifnot(requireNamespace("jsonlite"))
+
+  ## Create 'file_full_path' if auto.  Otherwise, warn when any pieces were given explicitly.
+  ## --------------------------------------------------------------------------------- ##
+  if (isTRUE(file_full_path == "auto")) {
+    file_full_path <- construct_rcreds_file_full_path(file_name=file_name, folder=folder, info.file_name=info.file_name)
+  } else if (!missing(file_full_path)) {
+      if ((!missing(file_name) || !missing(folder)) || !missing(info.file_name))
+        warning("Parameters 'file_name', 'folder', and 'info.file_name' are ignored when 'file_full_path' is set explicitly")
+  }
+  ## --------------------------------------------------------------------------------- ##
+
+  
+  args <- collectArgs(except=c("file_full_path", "info.file_name", "file_name"))
+  message("NAME OF args:")
+  catnn(names(args))
+  do.call(writeCredentialsToFile, args)
+}
+
+
+
+#' @export
 writeCredentialsToFile <- function(
     ...
-  , file_full_path     = file.path(folder, file_name)
+  , file_full_path     = "auto"
+  , info.file_name     = ""
   , file_name          = getOption("rcreds.file_name", default=".credentials.creds")
   , folder             = getOption("rcreds.folder",    default="~/.rcreds/credential_files")
   , zArchive_existing  = TRUE
@@ -24,8 +77,16 @@ writeCredentialsToFile <- function(
   stopifnot(requireNamespace("digest"))
   stopifnot(requireNamespace("jsonlite"))
 
-  if ((!missing(file_name) || !missing(folder))  &&  !missing(file_full_path))
-    warning("Parameters 'file_name' and 'folder' are ignored when 'file_full_path' is set explicitly")
+  ## Create 'file_full_path' if auto.  Otherwise, warn when any pieces were given explicitly.
+  ## --------------------------------------------------------------------------------- ##
+  if (isTRUE(file_full_path == "auto")) {
+    file_full_path <- construct_rcreds_file_full_path(file_name=file_name, folder=folder, info.file_name=info.file_name)
+  } else if (!missing(file_full_path)) {
+      if ((!missing(file_name) || !missing(folder)) || !missing(info.file_name))
+        warning("Parameters 'file_name', 'folder', and 'info.file_name' are ignored when 'file_full_path' is set explicitly")
+  }
+  ## --------------------------------------------------------------------------------- ##
+
 
   if (!file.exists(dirname(file_full_path)))
     dir.create(dirname(file_full_path), showWarnings=FALSE, recursive=TRUE, mode="0775")
@@ -73,6 +134,8 @@ writeCredentialsToFile <- function(
   ## ---------------------------------------------------------------------------- ##
 
 
+  message("names of creds:")
+  catnn(names(creds))
 
   creds_as_json_object <- jsonlite::toJSON(creds)
 
@@ -96,17 +159,24 @@ writeCredentialsToFile <- function(
 
 #' @export
 readCredentialsFromFile <- function(
-  # file=".credentials.creds", key=readKeyFromFile()) {
-    file_full_path = file.path(folder, file_name)
-  , file_name      = getOption("rcreds.file_name", default=".credentials.creds")
-  , folder         = getOption("rcreds.folder",    default="~/.rcreds/credential_files")
-  , key            = readKeyFromFile()
+    file_full_path     = "auto"
+  , info.file_name     = ""
+  , file_name          = getOption("rcreds.file_name", default=".credentials.creds")
+  , folder             = getOption("rcreds.folder",    default="~/.rcreds/credential_files")
+  , key                = readKeyFromFile()
 ) {
   stopifnot(requireNamespace("digest"))
   stopifnot(requireNamespace("jsonlite"))
 
-  if ((!missing(file_name) || !missing(folder))  &&  !missing(file_full_path))
-    warning("Parameters 'file_name' and 'folder' are ignored when 'file_full_path' is set explicitly")
+  ## Create 'file_full_path' if auto.  Otherwise, warn when any pieces were given explicitly.
+  ## --------------------------------------------------------------------------------- ##
+  if (isTRUE(file_full_path == "auto")) {
+    file_full_path <- construct_rcreds_file_full_path(file_name=file_name, folder=folder, info.file_name=info.file_name)
+  } else if (!missing(file_full_path)) {
+      if ((!missing(file_name) || !missing(folder)) || !missing(info.file_name))
+        warning("Parameters 'file_name', 'folder', and 'info.file_name' are ignored when 'file_full_path' is set explicitly")
+  }
+  ## --------------------------------------------------------------------------------- ##
 
   ## Read in the binary data
   dat <- readBin(con=file_full_path, what="raw", n=1e6)
@@ -125,16 +195,5 @@ readCredentialsFromFile <- function(
   ret <- jsonlite::fromJSON(json)
 
   return(ret)
-}
-
-
-
-#' @export
-show_default_rcreds_file <- function() {
-  file_name          = getOption("rcreds.file_name", default=".credentials.creds")
-  folder             = getOption("rcreds.folder",    default="~/.rcreds/credential_files")
-  file_full_path     = file.path(folder, file_name)
-
-  return(file_full_path)
 }
 
