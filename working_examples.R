@@ -40,3 +40,8 @@ creds <- readCredentialsFromFile()
 ret <- writeDBCredentialsToFile()
 params <- readDBCredentialsFromFile()
 catnn(names(params))
+
+
+requireNamespace("rcreds")
+rcreds::readDBCredentialsFromFile(, key ... )
+
