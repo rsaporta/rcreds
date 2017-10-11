@@ -55,3 +55,4 @@ sftp-config.json
 ## ---------------- FILES SPECIFIC TO THIS PROJECT ---------------- ##
 
 
+/man/collectArgs.Rd
