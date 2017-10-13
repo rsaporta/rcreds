@@ -73,6 +73,12 @@ writeDBCredentialsToFile <- function(
 
   
   args <- collectArgs(except=c("file_full_path", "info.file_name", "file_name"))
+
+  ## Ensure ordering of args
+  first_args <- c("dbname", "host", "port", "username", "password")
+  matched <- match(first_args, names(args)) %>% {.[!is.na(.)]}
+  args %<>% {c(.[matched], .[-matched])}
+
   message("NAME OF args:")
   catnn(names(args))
   do.call(writeCredentialsToFile, args)
