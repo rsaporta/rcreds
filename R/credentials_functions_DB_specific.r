@@ -41,6 +41,7 @@ readDBCredentialsFromFile <- function(
 }
 
 #' @rdname read_write_redentials_files
+#' @importFrom magrittr %<>%
 #' @export
 writeDBCredentialsToFile <- function(
     dbname            = "dev"
