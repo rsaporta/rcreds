@@ -1,5 +1,8 @@
+.gitignore
+\.png$
 ^.*\.Rproj$            # Automatically added by RStudio,
 ^\.Rproj\.user$        # used for temporary files. 
+sublws/.*             # Ignore any sublime text files
 ^README\.Rmd$          # An Rmarkdown file used to generate README.md
 ^cran\-comments\.md$   # Comments for CRAN submission
 ^NEWS\.md$             # A news file written in Markdown
@@ -8,3 +11,53 @@
 ^.*.tar.gz$            # Package Builds
 ^building and testing\.R$  # devtools command used interactively
 
+
+
+# tikzDictionary$
+# aux$
+# log$
+# out$
+# inst/examples/knitr-.*.pdf
+# inst/examples/child/knitr-.*.pdf
+# inst/examples/child/knitr-.*\.md
+# inst/examples/figure
+# inst/examples/cache
+# knitr-minimal.md
+# knitr-spin.md
+# png$
+# NEWS.md
+# ^\.Rproj\.user$
+# ^.*\.Rproj$
+# ^\.travis\.yml$
+# FAQ.md
+# Makefile
+# ^knitr-examples$
+# ^\.github$
+# ^revdep$
+# ^docs$
+# ^README-ES\.md$
+
+# .gitignore
+# tikzDictionary$
+# aux$
+# log$
+# out$
+# inst/examples/knitr-.*.pdf
+# inst/examples/child/knitr-.*.pdf
+# inst/examples/child/knitr-.*\.md
+# inst/examples/figure
+# inst/examples/cache
+# knitr-minimal.md
+# knitr-spin.md
+# png$
+# NEWS.md
+# ^\.Rproj\.user$
+# ^.*\.Rproj$
+# ^\.travis\.yml$
+# FAQ.md
+# Makefile
+# ^knitr-examples$
+# ^\.github$
+# ^revdep$
+# ^docs$
+# ^README-ES\.md$

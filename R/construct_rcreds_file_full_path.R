@@ -1,7 +1,15 @@
-#' @export
-#' @example get_rcreds_file(info="hi")
-#' @example get_rcreds_file(info="hi", file_name = "world.exe")
-#' @example get_rcreds_file(info="hi", file_name = ".world.exe")
+#' Construct Rcreds File Full Path
+#'
+#' Takes parts of a file name, info, and folder and creates a full path
+#'
+#' @param "rcreds.file_name" <what param does>
+#' @param file_name       string, cannot be empty  Filename with extension. Default is '.credentials.creds'
+#' @param folder          string, cannot be empty  Where file will be stored
+#' @param info.file_name  string, can    be empty. Prepended to file_name.            
+#'
+#' @return 
+#'     The full file path
+#' 
 construct_rcreds_file_full_path <- function(
     file_name          = getOption("rcreds.file_name", default=".credentials.creds")
   , folder             = getOption("rcreds.folder",    default="~/.rcreds/credential_files")

@@ -10,7 +10,7 @@
 #      Set this as an option
 #      Do not use as.path
 
-
+#' @rdname read_write_redentials_files
 #' @export
 writeCredentialsToFile <- function(
     ...
@@ -109,6 +109,7 @@ writeCredentialsToFile <- function(
   return(invisible(file_full_path))
 }
 
+#' @rdname read_write_redentials_files
 #' @export
 readCredentialsFromFile <- function(
     file_full_path     = "auto"

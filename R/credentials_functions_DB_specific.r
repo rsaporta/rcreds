@@ -1,3 +1,32 @@
+# ======================================================== #
+#   multi-function roxygen2 page using @rdname with NULL   #
+# ======================================================== #
+
+#' Read to / Write from credential files
+#' 
+#' Securely write sensitive info to disk and then read in and decrypt.
+#' 
+#' There are two sets of pairs of functions
+#' use \code{writeCredentialsToFile()} to output to disk
+#' use \code{readCredentialsFromFile()} to read in the credentials back to R
+#' 
+#' Similarly, there are a pair of functions with the 5 comonly-used parameters for database connections
+#' use \code{writeDBCredentialsToFile()} and \code{readDBCredentialsFromFile()}
+#' 
+#' @param TBD
+#'
+#' @return 
+#' for \code{writeCredentialsToFile} & \code{writeDBCredentialsToFile}: The file path where the encrypted values have been stored. 
+#' 
+#' for \code{readCredentialsFromFile} & \code{readDBCredentialsFromFile}: A list object of the decrypted values.
+#' 
+#' @name read_write_redentials_files
+#' 
+#' @examples
+#'   "TBD"
+NULL
+
+#' @rdname read_write_redentials_files
 #' @export
 readDBCredentialsFromFile <- function(
     file_full_path     = "auto"
@@ -11,8 +40,8 @@ readDBCredentialsFromFile <- function(
   do.call(readCredentialsFromFile, args)
 }
 
+#' @rdname read_write_redentials_files
 #' @export
-#' @example  writeDBCredentialsToFile()
 writeDBCredentialsToFile <- function(
     dbbname            = "dev"
   , host               = "localhost"
