@@ -1,14 +1,13 @@
-.gitignore
-\.png$
+^\.gitignore$
+^.*\.png$
 ^.*\.Rproj$
 ^\.Rproj\.user$
-sublws/.*
 ^README\.Rmd$
-^cran-comments\.md$
 ^NEWS\.md$
 ^\.travis\.yml$
-.*vignettes/figure.*
-^.*.tar.gz$
+^vignettes/figure.*
+^.*\.tar\.gz$
 ^building and testing\.R$
-^sublws$
+^sublws/.*$
 ^working_examples\.R$
+^cran-comments\.md$
