@@ -26,7 +26,7 @@ readDBCredentialsFromFile(file_full_path = "auto", info.file_name = "",
   ".db_credentials.creds"), folder = getOption("rcreds.db.folder", default =
   "~/.rcreds/db_credential_files"), key = readKeyFromFile())
 
-writeDBCredentialsToFile(dbbname = "dev", host = "localhost", port = 5432,
+writeDBCredentialsToFile(dbname = "dev", host = "localhost", port = 5432,
   username = "you_forgot_to_specify_username",
   password = "too_many_secrets", file_full_path = "auto",
   info.file_name = "", file_name = getOption("rcreds.db.file_name", default

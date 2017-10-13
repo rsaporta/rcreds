@@ -43,7 +43,7 @@ readDBCredentialsFromFile <- function(
 #' @rdname read_write_redentials_files
 #' @export
 writeDBCredentialsToFile <- function(
-    dbbname            = "dev"
+    dbname            = "dev"
   , host               = "localhost"
   , port               = 5432
   , username           = "you_forgot_to_specify_username"
