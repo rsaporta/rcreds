@@ -14,7 +14,7 @@ test_that(desc="regular_functions", code={
     , folder = test_folder
   )
 
-  received_value <- readCredentialsFromFile(folder=test_folder)
+  received_value <- read_credentials_from_file(folder=test_folder)
 
   expected_value <- list(
       username = "I am the user"
@@ -29,7 +29,7 @@ test_that(desc="regular_functions", code={
 
   ## USE SOME OTHER KEY
   key3 <- createKey()
-  expect_error(readCredentialsFromFile(folder=test_folder, key=key3))
+  expect_error(read_credentials_from_file(folder=test_folder, key=key3))
 })
 
 ## TEST TODO:
@@ -49,7 +49,7 @@ test_that(desc="DB Funcs", code={
     , folder = test_folder
   )
 
-  received_value <- readDBCredentialsFromFile(folder=test_folder)
+  received_value <- read_db_credentials_from_file(folder=test_folder)
 
   expected_value <- list(    
       dbname = "this_is_the_db"
@@ -65,7 +65,7 @@ test_that(desc="DB Funcs", code={
 
   ## USE SOME OTHER KEY
   key2 <- createKey()
-  expect_error(readDBCredentialsFromFile(folder=test_folder, key=key2))
+  expect_error(read_db_credentials_from_file(folder=test_folder, key=key2))
 })
 
 

@@ -8,7 +8,7 @@ if (FALSE)
 library(rcreds)
 
 # createKey                
-# readCredentialsFromFile  
+# read_credentials_from_file  
 # readKeyFromFile          
 # saveKey                  
 # write_credentials_to_file
@@ -34,13 +34,13 @@ get_default_rcreds_file()
 key_object <- createKey
 
 retreg <- write_credentials_to_file(user = "sample_user", password = "what")
-creds <- readCredentialsFromFile()
+creds <- read_credentials_from_file()
 
 ret <- write_db_credentials_to_file()
-params <- readDBCredentialsFromFile()
+params <- read_db_credentials_from_file()
 cat(names(params), "", sep="\n")
 
 
 requireNamespace("rcreds")
-rcreds::readDBCredentialsFromFile(, key ... )
+rcreds::read_db_credentials_from_file(, key ... )
 

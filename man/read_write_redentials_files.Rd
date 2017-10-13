@@ -3,9 +3,9 @@
 %   R/credentials_functions_DB_specific.r
 \name{write_credentials_to_file}
 \alias{write_credentials_to_file}
-\alias{readCredentialsFromFile}
+\alias{read_credentials_from_file}
 \alias{read_write_redentials_files}
-\alias{readDBCredentialsFromFile}
+\alias{read_db_credentials_from_file}
 \alias{write_db_credentials_to_file}
 \title{Read to / Write from credential files}
 \usage{
@@ -16,12 +16,12 @@ write_credentials_to_file(..., file_full_path = "auto", info.file_name = "",
   key = readKeyFromFile(), verbose = getOption("verbose.rcreds", default =
   TRUE))
 
-readCredentialsFromFile(file_full_path = "auto", info.file_name = "",
+read_credentials_from_file(file_full_path = "auto", info.file_name = "",
   file_name = getOption("rcreds.file_name", default = ".credentials.creds"),
   folder = getOption("rcreds.folder", default = "~/.rcreds/credential_files"),
   key = readKeyFromFile())
 
-readDBCredentialsFromFile(file_full_path = "auto", info.file_name = "",
+read_db_credentials_from_file(file_full_path = "auto", info.file_name = "",
   file_name = getOption("rcreds.db.file_name", default =
   ".db_credentials.creds"), folder = getOption("rcreds.db.folder", default =
   "~/.rcreds/db_credential_files"), key = readKeyFromFile())
@@ -40,7 +40,7 @@ write_db_credentials_to_file(dbname = "dev", host = "localhost",
 \value{
 for \code{write_credentials_to_file} & \code{write_db_credentials_to_file}: The file path where the encrypted values have been stored. 
 
-for \code{readCredentialsFromFile} & \code{readDBCredentialsFromFile}: A list object of the decrypted values.
+for \code{read_credentials_from_file} & \code{read_db_credentials_from_file}: A list object of the decrypted values.
 }
 \description{
 Securely write sensitive info to disk and then read in and decrypt.
@@ -48,10 +48,10 @@ Securely write sensitive info to disk and then read in and decrypt.
 \details{
 There are two sets of pairs of functions
 use \code{write_credentials_to_file()} to output to disk
-use \code{readCredentialsFromFile()} to read in the credentials back to R
+use \code{read_credentials_from_file()} to read in the credentials back to R
 
 Similarly, there are a pair of functions with the 5 comonly-used parameters for database connections
-use \code{write_db_credentials_to_file()} and \code{readDBCredentialsFromFile()}
+use \code{write_db_credentials_to_file()} and \code{read_db_credentials_from_file()}
 }
 \examples{
 
@@ -60,7 +60,7 @@ use \code{write_db_credentials_to_file()} and \code{readDBCredentialsFromFile()}
     ## ... 
   }
 
-  credentials_list <- readDBCredentialsFromFile()
+  credentials_list <- read_db_credentials_from_file()
   some_login_function(username = credentials_list$user_name
                     , password = credentials_list$password
                      )

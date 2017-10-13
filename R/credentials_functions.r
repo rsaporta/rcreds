@@ -113,7 +113,7 @@ write_credentials_to_file <- function(
 #' @importFrom magrittr %>%
 #' @importFrom magrittr %<>%
 #' @export
-readCredentialsFromFile <- function(
+read_credentials_from_file <- function(
     file_full_path     = "auto"
   , info.file_name     = ""
   , file_name          = getOption("rcreds.file_name", default=".credentials.creds")

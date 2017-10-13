@@ -8,17 +8,17 @@
 #' 
 #' There are two sets of pairs of functions
 #' use \code{write_credentials_to_file()} to output to disk
-#' use \code{readCredentialsFromFile()} to read in the credentials back to R
+#' use \code{read_credentials_from_file()} to read in the credentials back to R
 #' 
 #' Similarly, there are a pair of functions with the 5 comonly-used parameters for database connections
-#' use \code{write_db_credentials_to_file()} and \code{readDBCredentialsFromFile()}
+#' use \code{write_db_credentials_to_file()} and \code{read_db_credentials_from_file()}
 #' 
 #' @param file_full_path The pathname
 #'
 #' @return 
 #' for \code{write_credentials_to_file} & \code{write_db_credentials_to_file}: The file path where the encrypted values have been stored. 
 #' 
-#' for \code{readCredentialsFromFile} & \code{readDBCredentialsFromFile}: A list object of the decrypted values.
+#' for \code{read_credentials_from_file} & \code{read_db_credentials_from_file}: A list object of the decrypted values.
 #' 
 #' @name read_write_redentials_files
 #' 
@@ -29,7 +29,7 @@
 #'     ## ... 
 #'   }
 #' 
-#'   credentials_list <- readDBCredentialsFromFile()
+#'   credentials_list <- read_db_credentials_from_file()
 #'   some_login_function(username = credentials_list$user_name
 #'                     , password = credentials_list$password
 #'                      )
@@ -38,7 +38,7 @@ NULL
 
 #' @rdname read_write_redentials_files
 #' @export
-readDBCredentialsFromFile <- function(
+read_db_credentials_from_file <- function(
     file_full_path     = "auto"
   , info.file_name     = ""
   , file_name          = getOption("rcreds.db.file_name", default=".db_credentials.creds")
@@ -47,7 +47,7 @@ readDBCredentialsFromFile <- function(
 ) {
 
   args <- collectArgs(except=c("file_full_path", "info.file_name", "file_name"))
-  do.call(readCredentialsFromFile, args)
+  do.call(read_credentials_from_file, args)
 }
 
 #' @rdname read_write_redentials_files
