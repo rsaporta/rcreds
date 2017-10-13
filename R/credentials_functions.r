@@ -12,7 +12,7 @@
 
 #' @rdname read_write_redentials_files
 #' @export
-writeCredentialsToFile <- function(
+write_credentials_to_file <- function(
     ...
   , file_full_path     = "auto"
   , info.file_name     = ""
@@ -110,6 +110,8 @@ writeCredentialsToFile <- function(
 }
 
 #' @rdname read_write_redentials_files
+#' @importFrom magrittr %>%
+#' @importFrom magrittr %<>%
 #' @export
 readCredentialsFromFile <- function(
     file_full_path     = "auto"

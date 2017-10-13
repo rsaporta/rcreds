@@ -11,15 +11,14 @@ library(rcreds)
 # readCredentialsFromFile  
 # readKeyFromFile          
 # saveKey                  
-# writeCredentialsToFile
+# write_credentials_to_file
 
 
 
 username <- "Cosmo"
 password <- "Too Many Secrets"
 
-
-writeCredentialsToFile(username = username, password = password)
+write_credentials_to_file(username = username, password = password)
 
 
 
@@ -34,12 +33,12 @@ get_default_rcreds_file()
 &&&&&&&&&&& RECA LEFT OFF HERE
 key_object <- createKey
 
-retreg <- writeCredentialsToFile(user = "sample_user", password = "what")
+retreg <- write_credentials_to_file(user = "sample_user", password = "what")
 creds <- readCredentialsFromFile()
 
-ret <- writeDBCredentialsToFile()
+ret <- write_db_credentials_to_file()
 params <- readDBCredentialsFromFile()
-catnn(names(params))
+cat(names(params), "", sep="\n")
 
 
 requireNamespace("rcreds")

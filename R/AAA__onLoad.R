@@ -1,7 +1,11 @@
-.onLoad <- function(libname, pkgname, verbose=getOption("verbose.onLoad", default=TRUE)) {
-  if (verbose)
-    cat("Running .onLoad() from ", pkgname, "  ||   [turn off this message with options(verbose.onLoad = FALSE) ]\n")
+'.' <- "dummy variable so that R CMD check will not complain"
 
+## hmmm... this doesn't work for some reason, so using the above solution instead
+# #' @importFrom utils suppressForeignCheck
+# utils::suppressForeignCheck(c("."))
+
+
+.onLoad <- function(libname, pkgname) {
   ## -------------------- OPTIONS FOR PACKAGE ----------------------- ##
   ## Options to Load.  
   ##   All Values should be quoted strings

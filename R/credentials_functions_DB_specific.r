@@ -7,23 +7,33 @@
 #' Securely write sensitive info to disk and then read in and decrypt.
 #' 
 #' There are two sets of pairs of functions
-#' use \code{writeCredentialsToFile()} to output to disk
+#' use \code{write_credentials_to_file()} to output to disk
 #' use \code{readCredentialsFromFile()} to read in the credentials back to R
 #' 
 #' Similarly, there are a pair of functions with the 5 comonly-used parameters for database connections
-#' use \code{writeDBCredentialsToFile()} and \code{readDBCredentialsFromFile()}
+#' use \code{write_db_credentials_to_file()} and \code{readDBCredentialsFromFile()}
 #' 
-#' @param TBD
+#' @param file_full_path The pathname
 #'
 #' @return 
-#' for \code{writeCredentialsToFile} & \code{writeDBCredentialsToFile}: The file path where the encrypted values have been stored. 
+#' for \code{write_credentials_to_file} & \code{write_db_credentials_to_file}: The file path where the encrypted values have been stored. 
 #' 
 #' for \code{readCredentialsFromFile} & \code{readDBCredentialsFromFile}: A list object of the decrypted values.
 #' 
 #' @name read_write_redentials_files
 #' 
 #' @examples
-#'   "TBD"
+#' 
+#'   some_login_function <- function(username, password) {
+#'     ## does something with username/password
+#'     ## ... 
+#'   }
+#' 
+#'   credentials_list <- readDBCredentialsFromFile()
+#'   some_login_function(username = credentials_list$user_name
+#'                     , password = credentials_list$password
+#'                      )
+#' 
 NULL
 
 #' @rdname read_write_redentials_files
@@ -42,8 +52,9 @@ readDBCredentialsFromFile <- function(
 
 #' @rdname read_write_redentials_files
 #' @importFrom magrittr %<>%
+#' @importFrom collectArgs collectArgs
 #' @export
-writeDBCredentialsToFile <- function(
+write_db_credentials_to_file <- function(
     dbname            = "dev"
   , host               = "localhost"
   , port               = 5432
@@ -80,8 +91,8 @@ writeDBCredentialsToFile <- function(
   matched <- match(first_args, names(args)) %>% {.[!is.na(.)]}
   args %<>% {c(.[matched], .[-matched])}
 
-  message("NAME OF args:")
-  catnn(names(args))
-  do.call(writeCredentialsToFile, args)
+  # message("NAME OF args:")
+  # catnn(names(args))
+  do.call(write_credentials_to_file, args)
 }
 

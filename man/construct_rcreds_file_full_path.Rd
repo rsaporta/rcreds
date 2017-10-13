@@ -15,7 +15,7 @@ construct_rcreds_file_full_path(file_name = getOption("rcreds.file_name",
 
 \item{info.file_name}{string, can    be empty. Prepended to file_name.}
 
-\item{"rcreds.file_name"}{<what param does>}
+\item{rcreds.file_name}{This is not a parameter name -- why does R Check think it is?}
 }
 \value{
 The full file path
