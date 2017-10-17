@@ -1,3 +1,5 @@
+#' R CMD Check compalin blocker
+#' 
 '.' <- "dummy variable so that R CMD check will not complain"
 
 ## hmmm... this doesn't work for some reason, so using the above solution instead
@@ -5,6 +7,16 @@
 # utils::suppressForeignCheck(c("."))
 
 
+#' Standard onLoad function for rcreds
+#' 
+#' Sets several options, if they are not already set when this function funs.
+#' 
+#' @param libname libname and pkgname are default \code{R} \code{.onLoad()} parameters
+#' @param pkgname libname and pkgname are default \code{R} \code{.onLoad()} parameters
+#' 
+#' @return invisible(TRUE)
+#' 
+#' (not exported)
 .onLoad <- function(libname, pkgname) {
   ## -------------------- OPTIONS FOR PACKAGE ----------------------- ##
   ## Options to Load.  

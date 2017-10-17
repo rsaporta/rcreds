@@ -7,10 +7,10 @@ if (FALSE)
 
 library(rcreds)
 
-# createKey                
+# create_key                
 # read_credentials_from_file  
-# readKeyFromFile          
-# saveKey                  
+# read_key_from_file          
+# save_key                  
 # write_credentials_to_file
 
 
@@ -31,7 +31,7 @@ get_default_rcreds_file()
 
 
 &&&&&&&&&&& RECA LEFT OFF HERE
-key_object <- createKey
+key_object <- create_key
 
 retreg <- write_credentials_to_file(user = "sample_user", password = "what")
 creds <- read_credentials_from_file()
