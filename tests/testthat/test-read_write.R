@@ -28,7 +28,7 @@ test_that(desc="regular_functions", code={
   expect_equal(received_value, expected_value)
 
   ## USE SOME OTHER KEY
-  key3 <- createKey()
+  key3 <- create_key()
   expect_error(read_credentials_from_file(folder=test_folder, key=key3))
 })
 
@@ -64,7 +64,7 @@ test_that(desc="DB Funcs", code={
   expect_equal(received_value, expected_value)
 
   ## USE SOME OTHER KEY
-  key2 <- createKey()
+  key2 <- create_key()
   expect_error(read_db_credentials_from_file(folder=test_folder, key=key2))
 })
 
