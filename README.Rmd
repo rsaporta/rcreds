@@ -1,4 +1,4 @@
-rcreds allows for a secure way to create R scripts that require login to other sytems, such as databases or websites. Users can securely write credentials and other sensitive information to an encrypted file on disk, and then later read those credentials back into R. 
+`rcreds` allows for a secure way to code scripts that require sensitive inputs such as login credentials to databases, APIs, or other systems. Users can securely write their credentials and other sensitive information to an encrypted file on disk, and then later read those credentials back into R. 
 
 The key concept has been adopted from 
       https://github.com/sdoyen/r_password_crypt/blob/master/crypt.R
@@ -7,7 +7,8 @@ The key concept has been adopted from
 ## Overview
 
 Many scripts require login to other systems.  The most common example is accessing data from a database. 
-Including the login credentials in plain text in the script is a bad habbit that many of us implement when scheduling scripts or to avoid having to type in our password everytime we run the script. 
+
+Most comonly, a user will simply hardcode their credentials right into their code. Avoiding this practice generally involves re-inputting passwords over and over again or nesting scripts within other scripts when scheduling tasks. 
 
 We will assume that, by nature of searching out such a package we can avoid here the discussion of the _why_ to implement a different approach (even when _"I am the only one who will be using or accessing this"_) and simply move on to the _how_ to use.
 
