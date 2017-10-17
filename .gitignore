@@ -6,7 +6,6 @@
 ## ----------- BACKUP AND OTHER FILES NOT TO PUSH ------------- ##
 ## plot files
 plots
-
 ## Specific data or backup folders for generic R projects
 ImageSaves
 ingest/ftp_data
@@ -14,10 +13,8 @@ ingest/zArchive
 out/zArchive
 log/zArchive
 # but not all zArchive, eg src/zArchive is OK
-
 ## Credentials Folder
 src/creds
-
 ## ----------- GENERIC SYSTEM, ETC ------------- ##
 ## Mac OS Stuff
 .DS_Store
@@ -45,15 +42,13 @@ sftp-config.json
 *.png
 *.jpg
 *.gif
-
 ## ---------------- R SPECIFIC FILES ---------------- ##
 *.Rhistory
 *.Rproj.user
 *.RData
 *.RDS
-
 ## ---------------- FILES SPECIFIC TO THIS PROJECT ---------------- ##
-
-
 /man/collectArgs.Rd
 /building and testing.R
+inst/doc
+vignette_scraps.R

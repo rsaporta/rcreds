@@ -11,3 +11,5 @@
 ^sublws/.*$
 ^working_examples\.R$
 ^cran-comments\.md$
+^vignette_scraps\.R$
+
