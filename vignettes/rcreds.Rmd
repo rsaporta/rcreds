@@ -85,7 +85,10 @@ do.call(some_login_function, c(creds, list(separate_param="do.call example")))
 Please report any issues or bugs at (the package's github page)[https://github.com/rsaporta/rcreds/issues]
 
 All pull requests will be gladly considered. 
-For tips on pull requests, checkout [codeinthehole blog] (http://codeinthehole.com/tips/pull-requests-and-other-good-practices-for-teams-using-github/)
+
+_For tips on pull requests, checkout [codeinthehole blog] (http://codeinthehole.com/tips/pull-requests-and-other-good-practices-for-teams-using-github/)_
+
+
 
 
 
