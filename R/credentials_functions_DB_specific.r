@@ -11,7 +11,7 @@ read_db_credentials_from_file <- function(
   , verbose            = getOption("verbose.rcreds", default=TRUE)  
 ) {
 
-  args <- collectArgs(except=c("file_full_path", "info.file_name", "file_name"))
+  args <- collectArgs(except=c("folder", "info.file_name", "file_name"))
   do.call(read_credentials_from_file, args)
 }
 
@@ -50,7 +50,7 @@ write_db_credentials_to_file <- function(
   ## --------------------------------------------------------------------------------- ##
 
   
-  args <- collectArgs(except=c("file_full_path", "info.file_name", "file_name"))
+  args <- collectArgs(except=c("folder", "info.file_name", "file_name"))
 
   ## Ensure ordering of args
   first_args <- c("dbname", "host", "port", "username", "password")
