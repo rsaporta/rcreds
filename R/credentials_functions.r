@@ -165,6 +165,9 @@ write_credentials_to_file <- function(
   ## if key is a file, this will read it to disk. If it is an object, this will validate it.
   key %<>% use_key()
 
+  ## Validate input
+  .confirm_is_string_of_length1(file_full_path, "file_full_path", empty_string_ok=FALSE, NAs_ok=FALSE)
+
   ## Create 'file_full_path' if auto.  Otherwise, warn when any pieces were given explicitly.
   ## --------------------------------------------------------------------------------- ##
   if (isTRUE(file_full_path == "..auto..")) {
@@ -205,8 +208,6 @@ write_credentials_to_file <- function(
       creds <- ..1
   } else {
     creds <- list(...)
-    creds_is_flat <- all(lapply(creds), length) == 1)
-    stopifnot(creds_is_flat)
     nms_from_vars <- as.character(substitute(as.list(...)))[-1]
     nms <- names(creds)
 
@@ -269,6 +270,9 @@ read_credentials_from_file <- function(
 
   ## if key is a file, this will read it to disk. If it is an object, this will validate it.
   key %<>% use_key()
+
+  ## Validate input
+  .confirm_is_string_of_length1(file_full_path, "file_full_path", empty_string_ok=FALSE, NAs_ok=FALSE)
 
   ## Create 'file_full_path' if auto.  Otherwise, warn when any pieces were given explicitly.
   ## --------------------------------------------------------------------------------- ##
