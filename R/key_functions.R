@@ -223,7 +223,8 @@ read_key_from_file <- function(
   if (!file.exists(file_full_path)) {
     if (verbose)
       message("Key File does not exist.  Will create one")
-    save_key(file_full_path = file_full_path)
+    if (create_if_not_exist)
+      save_key(file_full_path = file_full_path)
   }
 
   ret <- readRDS(file_full_path)
