@@ -1,6 +1,6 @@
 Package: rcreds
 Title: Tools to Use Secure Credentials Within R Scripts
-Version: 0.4.0
+Version: 0.4.2
 Authors@R: c(person(given="Rick", family="Saporta", email="RickSaporta@gmail.com",  role=c("aut","cre"), comment=NULL)
            , person(given="Mike", family="Reca",    email="michael.reca@vydia.com", role=c("ctb"),       comment=NULL)
     )
