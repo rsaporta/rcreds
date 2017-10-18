@@ -292,12 +292,9 @@ read_credentials_from_file <- function(
   creds <- aes_encryptor$decrypt(cipher=dat, raw=TRUE)
 
   ## Since we had padded with zeros, remove those
-  ##     ......................
-  ## &&&&&&&&&&&&  TODO &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-  ## TODO:  only remove zeros from start of creds
-        # zeros <- creds == 0
+  ## only remove zeros from start of creds
   creds <- creds[cumsum(creds) > 0]
-  json <- rawToChar(creds[creds>0])
+  json <- rawToChar(creds)
 
   ret <- try(jsonlite::fromJSON(json), silent=TRUE)
 
