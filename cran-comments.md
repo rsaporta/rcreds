@@ -1,7 +1,10 @@
 ## Package Name:  rcreds
 
 ## UPDATES SINCE PREVIOUS SUBMISSION
-* None. This is a new submission
+* Addressed the warnings and notes as per https://win-builder.r-project.org/incoming_pretest/171017_213133_rcreds_020/00check.log
+* Removed erroneous reference to non-public package, `rsugeneral`
+* Description no longer starts with package name
+* Capitalized 'within' ~> 'Within' in title
 
 ## Test environments
 * local OS X install, R 3.1.2
