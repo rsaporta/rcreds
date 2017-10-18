@@ -4,7 +4,7 @@ Version: 0.4.0
 Authors@R: c(person(given="Rick", family="Saporta", email="RickSaporta@gmail.com",  role=c("aut","cre"), comment=NULL)
            , person(given="Mike", family="Reca",    email="michael.reca@vydia.com", role=c("ctb"),       comment=NULL)
     )
-Description: This package provides tools to write a list of credentials to an encrypted file and later read from that file to use in scripts. The goal is to have a useful alternative to including username/passwords as part of a script or in the clear in a text file. Additional tools provided which are specific for connecting to a database.
+Description: Encrypt and Write credentials to disk, then read them into a script at run time. The goal is to have a useful alternative to including username/passwords as part of a script or in the clear in a text file. Additional tools provided which are specific for connecting to a database.
     Current stable version (committed on October 18, 2017).
 Depends:
     R (>= 3.3.1)
@@ -23,7 +23,3 @@ Imports: jsonlite,
     utils,
     collectArgs
 VignetteBuilder: knitr
-
-
-
-
