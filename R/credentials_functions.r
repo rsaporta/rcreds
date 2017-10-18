@@ -165,6 +165,9 @@ write_credentials_to_file <- function(
   ## if key is a file, this will read it to disk. If it is an object, this will validate it.
   key %<>% use_key()
 
+  ## Validate input
+  .confirm_is_string_of_length1(file_full_path, "file_full_path", empty_string_ok=FALSE, NAs_ok=FALSE)
+
   ## Create 'file_full_path' if auto.  Otherwise, warn when any pieces were given explicitly.
   ## --------------------------------------------------------------------------------- ##
   if (isTRUE(file_full_path == "..auto..")) {
@@ -233,7 +236,7 @@ write_credentials_to_file <- function(
   # calculate number of zeros needed, based on length modulo 16
   fill_zeros <- as.raw(rep(0, 16 - length(creds_json_as_raw) %% 16))
   # padd in the zeros
-  creds_json_as_raw %<>% {c(., fill_zeros)}
+  creds_json_as_raw %<>% c(fill_zeros)
 
   ## CREATE THE ENCRYPTION
   aes_encryptor <- digest::AES(key=key, mode="ECB")
@@ -268,9 +271,12 @@ read_credentials_from_file <- function(
   ## if key is a file, this will read it to disk. If it is an object, this will validate it.
   key %<>% use_key()
 
+  ## Validate input
+  .confirm_is_string_of_length1(file_full_path, "file_full_path", empty_string_ok=FALSE, NAs_ok=FALSE)
+
   ## Create 'file_full_path' if auto.  Otherwise, warn when any pieces were given explicitly.
   ## --------------------------------------------------------------------------------- ##
-  if (isTRUE(file_full_path == "..auto..")) {
+  if (file_full_path == "..auto..") {
     file_full_path <- construct_rcreds_file_full_path(file_name=file_name, folder=folder, info.file_name=info.file_name)
   } else if (!missing(file_full_path)) {
       if ((!missing(file_name) || !missing(folder)) || !missing(info.file_name))
@@ -286,12 +292,9 @@ read_credentials_from_file <- function(
   creds <- aes_encryptor$decrypt(cipher=dat, raw=TRUE)
 
   ## Since we had padded with zeros, remove those
-  ##     ......................
-  ## &&&&&&&&&&&&  TODO &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-  ## TODO:  only remove zeros from start of creds
-        # zeros <- creds == 0
-  creds <- creds[creds > 0]
-  json <- rawToChar(creds[creds>0])
+  ## only remove zeros from start of creds
+  creds <- creds[cumsum(creds) > 0]
+  json <- rawToChar(creds)
 
   ret <- try(jsonlite::fromJSON(json), silent=TRUE)
 
