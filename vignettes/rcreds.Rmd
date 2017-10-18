@@ -1,5 +1,5 @@
 ---
-title: "rcreds - Securely Incorporate Login Credentials Into R Scripts"
+title: "Introduction to rcreds"
 author: "Rick Saporta, Mike Reca"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -9,6 +9,11 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+Securely Incorporate Login Credentials Into R Scripts
+
+There are two main functions in `rcreds`
+* WRITE functions:  `write_credentials_to_file()` and the database version `write_db_credentials_to_file()`
+* READ  functions: `read_credentials_from_file()` and the database version `read_db_credentials_from_file()`
 
 `rcreds` allows for a secure way to code scripts that require sensitive inputs such as login credentials to databases, APIs, or other systems. Users can securely write their credentials and other sensitive information to an encrypted file on disk, and then later read those credentials back into R. 
 
@@ -87,8 +92,4 @@ Please report any issues or bugs at (the package's github page)[https://github.c
 All pull requests will be gladly considered. 
 
 _For tips on pull requests, checkout [codeinthehole blog] (http://codeinthehole.com/tips/pull-requests-and-other-good-practices-for-teams-using-github/)_
-
-
-
-
 
