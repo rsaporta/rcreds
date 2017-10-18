@@ -221,9 +221,13 @@ read_key_from_file <- function(
   , verbose        = getOption("verbose.rcreds", default=TRUE)
 ) {
   if (!file.exists(file_full_path)) {
+    if (create_if_not_exist)
+      save_key(file_full_path = file_full_path)
+    else
+      stop("Key file '", file_full_path, "' does not exist")
+
     if (verbose)
-      message("Key File does not exist.  Will create one")
-    save_key(file_full_path = file_full_path)
+      cat("Key File did not exist and was created in '", file_full_path, "'", sep="", "\n")
   }
 
   ret <- readRDS(file_full_path)
