@@ -33,3 +33,22 @@
 
   return(invisible(TRUE))
 }
+
+.confirm_is_logical_of_length1 <- function(x, nm_for_err_msg, NAs_ok=FALSE) {
+  if (missing(nm_for_err_msg)) {
+    nm_for_err_msg <- as.character(substitute(x))
+  }
+
+  it_should_be <- ifelse(NAs_ok, "'.  It should be a logical of length 1 -- it "
+                               , "'.  It should be a single TRUE/FALSE value -- it ")
+
+  if (length(x) != 1)
+    stop("Invalid input for '", nm_for_err_msg, it_should_be, "has length ", length(x))
+  if (!is.logical(x))
+    stop("Invalid input for '", nm_for_err_msg, it_should_be, "is an object of class \"", class(x)[[1L]], "\"")
+  if (!NAs_ok && is.na(x))
+    stop("Invalid input for '", nm_for_err_msg, it_should_be, "is NA")
+
+  return(invisible(TRUE))
+}
+
