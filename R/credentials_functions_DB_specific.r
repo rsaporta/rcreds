@@ -40,12 +40,15 @@ write_db_credentials_to_file <- function(
   , info.file_name     = ""
   , file_name          = getOption("rcreds.db.file_name", default=".db_credentials.creds")
   , folder             = get_default_rcreds_folder(DB = TRUE) #getOption("rcreds.db.folder",    default="~/.rcreds/db_credential_files")
+  , allow_root_user    = FALSE
   , zArchive_existing  = TRUE
   , overwrite_existing = FALSE
   , key                = read_key_from_file()
   , ...
   , verbose            = getOption("verbose.rcreds", default=TRUE)  
 ) {
+
+  .stop_if_root(allow_root_user=allow_root_user)
 
   stopifnot(requireNamespace("digest"))
   stopifnot(requireNamespace("jsonlite"))

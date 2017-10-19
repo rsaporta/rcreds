@@ -54,3 +54,13 @@
   return(invisible(TRUE))
 }
 
+.stop_if_root <- function(allow_root_user=FALSE) {
+  if (!allow_root_user) {
+    root_user <- "root"  ## not sure what this is on Windows machines
+    if (!allow_root_user && Sys.getenv("USER") == root_user){
+      stop("The current user is '", root_user, "'\nTo proceed the 'allow_root_user' must be set to TRUE\n\nNOTE: If the files are created under a root user, it is possible that\n       other users will NOT be able to use those files\n       (wihtout subsequent permission modifications).")
+    }
+  }
+  return(invisible(NULL))
+}
+

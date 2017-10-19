@@ -182,8 +182,11 @@ save_key <- function(
   , zArchive_existing  = TRUE
   , overwrite_existing = FALSE
   , showWarnings       = TRUE
+  , allow_root_user    = FALSE
   , verbose            = getOption("verbose.rcreds", default=TRUE)
 ) {
+
+  .stop_if_root(allow_root_user=allow_root_user)
 
   if (missing(key) && !missing(file_full_path) && is.key_rcreds(file_full_path))
     stop("'key' parameter is missing but 'file_full_path' is a key_rcreds object.\n\n  HINT: Do you have your parameters unnamed?\n        ie this happens when a user runs      `save_key(KeyObject)`")
