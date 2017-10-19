@@ -86,11 +86,31 @@ do.call(some_login_function, c(creds, list(separate_param="do.call example")))
 ```
 
 
+## Troubleshooting
+
+Since we are writing to and reading from files, the user under which `R` is running must have appropriate permissions to both: the file, and the folder in which the file is located.
+
+When this is not the case you will receive an error that will (usually) end with `probable reason 'Permission denied'`
+For example: 
+
+    Error in gzfile(file, mode) : cannot open the connection
+    In addition: Warning message:
+    In gzfile(file, mode) :
+      cannot open compressed file '/PATH/TO/FILE/file_name.crypt_key.rds', probable reason 'Permission denied'
+
+NOTE: You will often see this when you create the key or creds file with one user and then try to use the file with a different user. eg, did you use `sudo R` to create the files?  
+
+RESOLUTION:  Please ensure that your user has permissions on the folder and file. (On Mac OSX and Linux systems, use `chown` and/or `chmod`). [Stackoverflow](www.stackoverflow.com) has several questions and answers on this topic.
+
+
 ## Issues & Feedback
+
 Please report any issues or bugs at [the package's github page](https://github.com/rsaporta/rcreds/issues)
 
 All pull requests will be gladly considered. 
 
 _For tips on pull requests, checkout [this helpful blog post](http://codeinthehole.com/tips/pull-requests-and-other-good-practices-for-teams-using-github/) by codeinthehole_
+
+
 
 
