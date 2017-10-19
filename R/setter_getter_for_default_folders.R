@@ -18,6 +18,8 @@
 #'           Defaults to: FALSE
 #'
 #' @param folder full path/to/folder where to store creds or key. A quoted string
+#' @param parent_folder full path/to/parent_folder in which three subfolders will 
+#'                      be (optionally) created to store credentials and keys
 #'
 #' @param check_if_exists TRUE/FALSE flag. Should we check if the folder exists
 #'
@@ -269,3 +271,41 @@ clear_default_rcreds_key_folder <- function(verbose=TRUE) {
   return(invisible(previous))
 }
 
+
+#' @rdname setters_getters
+#' @importFrom magrittr %>%
+#' @export
+set_default_rcreds_ALL <- function(parent_folder, create_if_not_exist=FALSE, showWarnings=TRUE, verbose=TRUE) {
+
+  if (missing(parent_folder))
+    stop("parent_folder must be given explicitly.\n  HINT: recommended location is '~/.rcreds/'\n  \n  set_default_rcreds_ALL(parent_folder=\"~/.rcreds/\")")
+
+  FOLDER_DB    <- file.sep(parent_folder, "db_credential_files")
+  FOLDER_CREDS <- file.sep(parent_folder, "credential_files")
+  FOLDER_KEY   <- file.sep(parent_folder, "key_files")
+
+  if (!file.exists(parent_folder)) {
+    if (create_if_not_exist)
+      dir.create(parent_folder, mode="0775")
+  } else if (!file.info(parent_folder)$isdir) {
+    stop("parent_folder '", parent_folder, "' exists but it is NOT a folder.\nWill not be able to create subfolders at that location.")
+  }
+
+  if (verbose) {
+    whitespace <- rep(" ", nchar(parent_folder)-1) %>% paste0(collapse="")
+    cat(
+      "Will set", " (and possible create)", " three subfolders in the parent_folder", "\n"
+    , "     ", parent_folder, "\n"
+    , "     ", whitespace, "|- /db_credential_files", "\n"
+    , "     ", whitespace, "|-  /credential_files", "\n"
+    , "     ", whitespace, "|-  /key_files", "\n"
+    , "", "\n"
+    , "", sep="")
+  }
+
+  set_default_rcreds_folder(folder=FOLDER_DB,      DB = TRUE,  showWarnings=showWarnings, verbose=FALSE)
+  set_default_rcreds_folder(folder=FOLDER_CREDS,   DB = FALSE, showWarnings=showWarnings, verbose=FALSE)
+  set_default_rcreds_key_folder(folder=FOLDER_KEY,             showWarnings=showWarnings, verbose=FALSE)
+
+  return(invisible(parent_folder))
+}
