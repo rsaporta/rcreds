@@ -5,8 +5,8 @@
 \title{Construct Rcreds File Full Path}
 \usage{
 construct_rcreds_file_full_path(file_name = getOption("rcreds.file_name",
-  default = ".credentials.creds"), folder = getOption("rcreds.folder", default
-  = "~/.rcreds/credential_files"), info.file_name = "")
+  default = ".credentials.creds"), folder = get_default_rcreds_folder(DB =
+  DB), info.file_name = "", DB = FALSE)
 }
 \arguments{
 \item{file_name}{string, cannot be empty  Filename with extension. Default is '.credentials.creds'}
@@ -14,6 +14,10 @@ construct_rcreds_file_full_path(file_name = getOption("rcreds.file_name",
 \item{folder}{string, cannot be empty  Where file will be stored}
 
 \item{info.file_name}{string, can    be empty. Prepended to file_name.}
+
+\item{DB}{TRUE/FALSE flag. Is the folder for the db credentials functions?
+
+          Defaults to: FALSE}
 
 \item{rcreds.file_name}{This is not a parameter name -- why does R Check think it is?}
 }

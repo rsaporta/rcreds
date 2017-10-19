@@ -6,14 +6,18 @@
 #' @param file_name       string, cannot be empty  Filename with extension. Default is '.credentials.creds'
 #' @param folder          string, cannot be empty  Where file will be stored
 #' @param info.file_name  string, can    be empty. Prepended to file_name.            
+#' @param DB TRUE/FALSE flag. Is the folder for the db credentials functions?
+#'
+#'           Defaults to: FALSE
 #'
 #' @return 
 #'     The full file path
 #' 
 construct_rcreds_file_full_path <- function(
     file_name          = getOption("rcreds.file_name", default=".credentials.creds")
-  , folder             = getOption("rcreds.folder",    default="~/.rcreds/credential_files")
+  , folder             = get_default_rcreds_folder(DB=DB) #getOption("rcreds.folder",    default="~/.rcreds/credential_files")
   , info.file_name     = ""
+  , DB                 = FALSE
 ) {
 
   ## validate input
@@ -32,3 +36,13 @@ construct_rcreds_file_full_path <- function(
 
   return(file_full_path)
 }
+
+
+
+
+
+
+
+
+
+

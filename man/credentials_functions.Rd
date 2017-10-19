@@ -11,33 +11,33 @@
 \usage{
 write_credentials_to_file(..., file_full_path = "..auto..",
   info.file_name = "", file_name = getOption("rcreds.file_name", default =
-  ".credentials.creds"), folder = getOption("rcreds.folder", default =
-  "~/.rcreds/credential_files"), zArchive_existing = TRUE,
-  overwrite_existing = FALSE, key = read_key_from_file(),
-  verbose = getOption("verbose.rcreds", default = TRUE))
+  ".credentials.creds"), folder = get_default_rcreds_folder(DB = FALSE),
+  zArchive_existing = TRUE, overwrite_existing = FALSE,
+  key = read_key_from_file(), verbose = getOption("verbose.rcreds", default
+  = TRUE))
 
 read_credentials_from_file(file_full_path = "..auto..", info.file_name = "",
   file_name = getOption("rcreds.file_name", default = ".credentials.creds"),
-  folder = getOption("rcreds.folder", default = "~/.rcreds/credential_files"),
+  folder = get_default_rcreds_folder(DB = FALSE),
   key = read_key_from_file(), fail_if_cant_decrypt = TRUE,
   showWarnings = TRUE, verbose = getOption("verbose.rcreds", default =
   TRUE))
 
 read_db_credentials_from_file(file_full_path = "..auto..",
   info.file_name = "", file_name = getOption("rcreds.db.file_name", default
-  = ".db_credentials.creds"), folder = getOption("rcreds.db.folder", default =
-  "~/.rcreds/db_credential_files"), key = read_key_from_file(),
-  fail_if_cant_decrypt = TRUE, showWarnings = TRUE,
-  verbose = getOption("verbose.rcreds", default = TRUE))
+  = ".db_credentials.creds"), folder = get_default_rcreds_folder(DB = TRUE),
+  key = read_key_from_file(), fail_if_cant_decrypt = TRUE,
+  showWarnings = TRUE, verbose = getOption("verbose.rcreds", default =
+  TRUE))
 
 write_db_credentials_to_file(dbname = "dev", host = "localhost",
   port = 5432, username = "you_forgot_to_specify_username",
   password = "too_many_secrets", file_full_path = "..auto..",
   info.file_name = "", file_name = getOption("rcreds.db.file_name", default
-  = ".db_credentials.creds"), folder = getOption("rcreds.db.folder", default =
-  "~/.rcreds/db_credential_files"), zArchive_existing = TRUE,
-  overwrite_existing = FALSE, key = read_key_from_file(), ...,
-  verbose = getOption("verbose.rcreds", default = TRUE))
+  = ".db_credentials.creds"), folder = get_default_rcreds_folder(DB = TRUE),
+  zArchive_existing = TRUE, overwrite_existing = FALSE,
+  key = read_key_from_file(), ..., verbose = getOption("verbose.rcreds",
+  default = TRUE))
 }
 \arguments{
 \item{...}{values to be encrypted and written to the credentials file. 
@@ -144,6 +144,10 @@ use \code{write_db_credentials_to_file()} and \code{read_db_credentials_from_fil
     ## does something with username/password
     ## ... 
   }
+
+  ## Default Folders need to be set. This shold be in an .Rprofile file
+  set_default_rcreds_folder(folder="~/.rcreds/db_credential_files", DB = TRUE)
+  set_default_rcreds_key_folder(folder="~/.rcreds/key_files")
 
   ## ONE TIME, DO NOT SAVE THIS 
   write_db_credentials_to_file(username="cosmo", password="still too many secrets"

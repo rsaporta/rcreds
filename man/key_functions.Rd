@@ -99,6 +99,14 @@ DETAILED DESCRIPTION of what these functions do
 }
 \examples{
 
+   ### ---------------------------------------------- ###
+   ## Default Folders need to be set. This shold be in an .Rprofile file
+   ### ---------------------------------------------- ###
+   rcreds::set_default_rcreds_folder(folder="~/.rcreds/credential_files", DB = FALSE)
+   rcreds::set_default_rcreds_folder(folder="~/.rcreds/db_credential_files", DB = TRUE)
+   rcreds::set_default_rcreds_key_folder(folder="~/.rcreds/key_files")
+   ### ---------------------------------------------- ###
+
    library(rcreds)
 
    key <- create_key()
