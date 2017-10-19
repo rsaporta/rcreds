@@ -1,10 +1,15 @@
 ## Package Name:  rcreds
 
 ## UPDATES SINCE PREVIOUS SUBMISSION
-* Fixed Vignette Build
-* Edited the Description File
+* Implemented setters/getters for default write-to folder
+* No longer writing to user's home directory
+* Cleaned up Description
+* Minor bug fixes
+* More tests via testthat
 
 ## CHANGES AT PREVIOUS SUBMISSION
+* Fixed Vignette Build
+* Edited the Description File
 * Addressed the warnings and notes as per https://win-builder.r-project.org/incoming_pretest/171017_213133_rcreds_020/00check.log
 * Removed erroneous reference to non-public package, `rsugeneral`
 * Description no longer starts with package name
