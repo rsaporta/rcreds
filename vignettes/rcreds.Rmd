@@ -46,11 +46,29 @@ some_login_function <- function(username, password, separate_param) {
  
 The `rcreds` approach would be to write the credentials to an encrypted file on disk and then read and decrypt them when needed. 
 
-## Saving Credentials
+## Initial Setup
 
+The user needs to tell `rcreds` where files should be written to and read from. 
+This can go in your `~/.Rprofile` file.
+```{r, echo=FALSE, results='asis'}
+
+library(rcreds)
+
+set_default_rcreds_folder("~/.rcreds/credential_files")
+set_default_rcreds_folder("~/.rcreds/db_credential_files", DB=TRUE)
+set_default_rcreds_key_folder(folder="~/.rcreds/key_files")
+```
+
+
+## Saving Credentials
 
 One time, write to disk
 ```{r, echo=FALSE, results='asis'}
+
+## NEEDED FOR VIGNETTE -- should be in an .Rprofile file
+rcreds::set_default_rcreds_folder("~/.rcreds/credential_files")
+rcreds::set_default_rcreds_folder("~/.rcreds/db_credential_files", DB=TRUE)
+rcreds::set_default_rcreds_key_folder(folder="~/.rcreds/key_files")
 
 library(rcreds)
 

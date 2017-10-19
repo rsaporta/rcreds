@@ -26,7 +26,7 @@
   ## Code adapted from the data.table package
   opts = c(  
             ## Default Location of binary credential-files
-            , "rcreds.file_name"      = "'.credentials.creds'"
+              "rcreds.file_name"      = "'.credentials.creds'"
  
             ## Default Location of Keys
             , "rcreds.key.file_name"  = "'.crypt_key.rds'"

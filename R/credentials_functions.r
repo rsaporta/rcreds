@@ -115,6 +115,10 @@
 #'     ## ... 
 #'   }
 #' 
+#'   ## Default Folders need to be set. This shold be in an .Rprofile file
+#'   set_default_rcreds_folder(folder="~/.rcreds/db_credential_files", DB = TRUE)
+#'   set_default_rcreds_key_folder(folder="~/.rcreds/key_files")
+#' 
 #'   ## ONE TIME, DO NOT SAVE THIS 
 #'   write_db_credentials_to_file(username="cosmo", password="still too many secrets"
 #'                              , port=1234, host="ec2-1234-567-89.us-west.compute.amazonaws.com")
@@ -153,7 +157,7 @@ write_credentials_to_file <- function(
   , file_full_path     = "..auto.."
   , info.file_name     = ""
   , file_name          = getOption("rcreds.file_name", default=".credentials.creds")
-  , folder             = getOption("rcreds.folder",    default="~/.rcreds/credential_files")
+  , folder             = get_default_rcreds_folder(DB=FALSE) # getOption("rcreds.folder",    default="~/.rcreds/credential_files")
   , zArchive_existing  = TRUE
   , overwrite_existing = FALSE
   , key                = read_key_from_file()
@@ -256,7 +260,7 @@ read_credentials_from_file <- function(
     file_full_path     = "..auto.."
   , info.file_name     = ""
   , file_name          = getOption("rcreds.file_name", default=".credentials.creds")
-  , folder             = getOption("rcreds.folder",    default="~/.rcreds/credential_files")
+  , folder             = get_default_rcreds_folder(DB=FALSE) # getOption("rcreds.folder",    default="~/.rcreds/credential_files")
   , key                = read_key_from_file()
   , fail_if_cant_decrypt = TRUE
   , showWarnings       = TRUE

@@ -4,12 +4,23 @@ read_db_credentials_from_file <- function(
     file_full_path     = "..auto.."
   , info.file_name     = ""
   , file_name          = getOption("rcreds.db.file_name", default=".db_credentials.creds")
-  , folder             = getOption("rcreds.db.folder",    default="~/.rcreds/db_credential_files")
+  , folder             = get_default_rcreds_folder(DB = TRUE) #getOption("rcreds.db.folder",    default="~/.rcreds/db_credential_files")
   , key                = read_key_from_file()
   , fail_if_cant_decrypt = TRUE
   , showWarnings       = TRUE
   , verbose            = getOption("verbose.rcreds", default=TRUE)  
 ) {
+
+
+  ## Create 'file_full_path' if auto.  Otherwise, warn when any pieces were given explicitly.
+  ## --------------------------------------------------------------------------------- ##
+  if (isTRUE(file_full_path == "..auto..")) {
+    file_full_path <- construct_rcreds_file_full_path(file_name=file_name, folder=folder, info.file_name=info.file_name)
+  } else if (!missing(file_full_path)) {
+      if ((!missing(file_name) || !missing(folder)) || !missing(info.file_name))
+        warning("Parameters 'file_name', 'folder', and 'info.file_name' are ignored when 'file_full_path' is set explicitly")
+  }
+  ## --------------------------------------------------------------------------------- ##
 
   args <- collectArgs(except=c("folder", "info.file_name", "file_name"))
   do.call(read_credentials_from_file, args)
@@ -20,7 +31,7 @@ read_db_credentials_from_file <- function(
 #' @importFrom collectArgs collectArgs
 #' @export
 write_db_credentials_to_file <- function(
-    dbname            = "dev"
+    dbname             = "dev"
   , host               = "localhost"
   , port               = 5432
   , username           = "you_forgot_to_specify_username"
@@ -28,7 +39,7 @@ write_db_credentials_to_file <- function(
   , file_full_path     = "..auto.."
   , info.file_name     = ""
   , file_name          = getOption("rcreds.db.file_name", default=".db_credentials.creds")
-  , folder             = getOption("rcreds.db.folder",    default="~/.rcreds/db_credential_files")
+  , folder             = get_default_rcreds_folder(DB = TRUE) #getOption("rcreds.db.folder",    default="~/.rcreds/db_credential_files")
   , zArchive_existing  = TRUE
   , overwrite_existing = FALSE
   , key                = read_key_from_file()
