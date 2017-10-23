@@ -8,6 +8,7 @@
 \alias{get_default_rcreds_key_folder}
 \alias{set_default_rcreds_key_folder}
 \alias{clear_default_rcreds_key_folder}
+\alias{set_default_rcreds_ALL}
 \title{Setter Getter for Default rcreds Folders}
 \usage{
 get_default_rcreds_folder(DB = FALSE, check_if_exists = TRUE,
@@ -25,6 +26,9 @@ set_default_rcreds_key_folder(folder, create_if_not_exist = FALSE,
   showWarnings = TRUE, verbose = TRUE)
 
 clear_default_rcreds_key_folder(verbose = TRUE)
+
+set_default_rcreds_ALL(parent_folder, create_if_not_exist = FALSE,
+  showWarnings = TRUE, verbose = TRUE)
 }
 \arguments{
 \item{DB}{TRUE/FALSE flag. Is the folder for the db credentials functions?
@@ -53,6 +57,9 @@ clear_default_rcreds_key_folder(verbose = TRUE)
 \item{verbose}{When FALSE, output will be supressed.
 
                Defaults to: TRUE}
+
+\item{parent_folder}{full path/to/parent_folder in which three subfolders will 
+be (optionally) created to store credentials and keys}
 }
 \value{
 The folder set in the options. 

@@ -71,6 +71,11 @@
 #'                 Defaults to: "too_many_secrets"
 #'
 #'
+#' @param allow_root_user A TRUE/FALSE flag.  If FALSE and user is root, then writing and saving functions will fail
+#'                     This is a safety to make sure the user understands they are operating under root.
+#'
+#'                          Defaults to: FALSE
+#'
 #' @param zArchive_existing A TRUE/FALSE flag.  If \code{file_full_path} already exist, should it be moved to a zArchive folder?
 #'
 #'                          Defaults to: TRUE
@@ -158,11 +163,15 @@ write_credentials_to_file <- function(
   , info.file_name     = ""
   , file_name          = getOption("rcreds.file_name", default=".credentials.creds")
   , folder             = get_default_rcreds_folder(DB=FALSE) # getOption("rcreds.folder",    default="~/.rcreds/credential_files")
+  , allow_root_user    = FALSE
   , zArchive_existing  = TRUE
   , overwrite_existing = FALSE
   , key                = read_key_from_file()
   , verbose            = getOption("verbose.rcreds", default=TRUE)
 ) {
+
+  .stop_if_root(allow_root_user=allow_root_user)
+
   stopifnot(requireNamespace("digest"))
   stopifnot(requireNamespace("jsonlite"))
 

@@ -21,7 +21,8 @@ save_key(file_full_path = file.path(folder, file_name),
   folder = getOption("rcreds.key.folder", default = "~/.rcreds/key_files"),
   key, bytes = 32, depth = 8, seed = NULL, zArchive_existing = TRUE,
   overwrite_existing = FALSE, showWarnings = TRUE,
-  verbose = getOption("verbose.rcreds", default = TRUE))
+  allow_root_user = FALSE, verbose = getOption("verbose.rcreds", default =
+  TRUE))
 
 read_key_from_file(file_full_path = file.path(folder, file_name),
   file_name = getOption("rcreds.key.file_name", default = ".crypt_key.rds"),
@@ -78,6 +79,11 @@ read_key_from_file(file_full_path = file.path(folder, file_name),
 \item{overwrite_existing}{A TRUE/FALSE flag.  If \code{file_full_path} already exist, should it be overwritten? This is only considered when \code{zArchive_existing} is FALSE
 
                           Defaults to: FALSE}
+
+\item{allow_root_user}{A TRUE/FALSE flag.  If FALSE and user is root, then writing and saving functions will fail
+                    This is a safety to make sure the user understands they are operating under root.
+
+                         Defaults to: FALSE}
 
 \item{create_if_not_exist}{A TRUE/FALSE flag. for \code{read_key_from_file}: If the given file does not exist, 
                    should a key be created and stored at that location?
