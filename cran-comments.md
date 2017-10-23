@@ -1,23 +1,22 @@
 ## Package Name:  rcreds
 
 ## UPDATES SINCE PREVIOUS SUBMISSION
+* Addressed bug specific to Windows file structure
+* Added tests on Windows machine
+* Enhanced Tests
+* Minor enhancements on functions
+
+## CHANGES AT PREVIOUS SUBMISSION
 * Implemented setters/getters for default write-to folder
 * No longer writing to user's home directory
 * Cleaned up Description
 * Minor bug fixes
 * More tests via testthat
 
-## CHANGES AT PREVIOUS SUBMISSION
-* Fixed Vignette Build
-* Edited the Description File
-* Addressed the warnings and notes as per https://win-builder.r-project.org/incoming_pretest/171017_213133_rcreds_020/00check.log
-* Removed erroneous reference to non-public package, `rsugeneral`
-* Description no longer starts with package name
-* Capitalized 'within' ~> 'Within' in title
-
 ## Test environments
 * local OS X install, R 3.1.2
 * ubuntu 12.04, R 3.1.2
+* Windows 10 Home Edition
 
 ## R CMD check results
 There were no ERRORs
