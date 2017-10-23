@@ -1,12 +1,13 @@
 context("read_write")
 
 
+
 test_that(desc="regular_functions", code={
 
-  set_default_rcreds_folder(folder=file.path(tempdir(), ".rcreds", "db_credential_files"), DB = FALSE)
-  set_default_rcreds_key_folder(folder=file.path(tempdir(), ".rcreds", "key_files"))
+  set_default_rcreds_ALL(parent_folder=file.path(tempdir(), ".rcreds"), create_if_not_exist = TRUE)
 
   test_folder <- file.path(tempdir(), "rpkgs_test_folder", "rcreds")
+  dir.create(test_folder, recursive = TRUE, showWarnings = FALSE)
 
   ret <- write_credentials_to_file(
       username = "I am the user"
@@ -35,16 +36,12 @@ test_that(desc="regular_functions", code={
   expect_error(read_credentials_from_file(folder=test_folder, key=key3))
 })
 
-## TEST TODO:
-## Can I overwrite a file?
-
-
 test_that(desc="DB Funcs", code={
 
-  set_default_rcreds_folder(folder=file.path(tempdir(), ".rcreds", "db_credential_files"), DB = TRUE)
-  set_default_rcreds_key_folder(folder=file.path(tempdir(), ".rcreds", "key_files"))
+  set_default_rcreds_ALL(parent_folder=file.path(tempdir(), ".rcreds"), create_if_not_exist = TRUE)
 
   test_folder <- file.path(tempdir(), "rpkgs_test_folder", "rcreds")
+  dir.create(test_folder, recursive = TRUE, showWarnings = FALSE)
 
   ret <- write_db_credentials_to_file(
       dbname = "this_is_the_db"

@@ -49,6 +49,11 @@
 #' 
 #'                 Alternatively, a full file path to a key stored on disk can be given which will be read to disk.
 #'
+#' @param allow_root_user A TRUE/FALSE flag.  If FALSE and user is root, then writing and saving functions will fail
+#'                     This is a safety to make sure the user understands they are operating under root.
+#'
+#'                          Defaults to: FALSE
+#'
 #' @param zArchive_existing A TRUE/FALSE flag.  If \code{file_full_path} already exist, should it be moved to a zArchive folder?
 #'
 #'                          Defaults to: TRUE
