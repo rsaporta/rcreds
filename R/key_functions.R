@@ -38,7 +38,7 @@
 #'
 #' @param folder folder where the credentials will be written to or read from.
 #'
-#'               Defaults to: getOption(\\"rcreds.key.folder\\", default = \\"~/.rcreds/key_files\\")
+#'               Defaults to: get_default_rcreds_key_folder()
 #'
 #' @param create_if_not_exist A TRUE/FALSE flag. for \code{read_key_from_file}: If the given file does not exist, 
 #'                    should a key be created and stored at that location?
@@ -85,9 +85,8 @@
 #'    ### ---------------------------------------------- ###
 #'    ## Default Folders need to be set. This shold be in an .Rprofile file
 #'    ### ---------------------------------------------- ###
-#'    rcreds::set_default_rcreds_folder(folder="~/.rcreds/credential_files", DB = FALSE)
-#'    rcreds::set_default_rcreds_folder(folder="~/.rcreds/db_credential_files", DB = TRUE)
-#'    rcreds::set_default_rcreds_key_folder(folder="~/.rcreds/key_files")
+#'    ## generally use:  set_default_rcreds_ALL(parent_folder = "~/.rcreds/")
+#'    set_default_rcreds_ALL(parent_folder = file.path(tempdir(), ".rcreds/"), create_if_not_exist = TRUE)
 #'    ### ---------------------------------------------- ###
 #'
 #'    library(rcreds)
@@ -111,7 +110,7 @@ NULL
 #' @export
 show_default_rcreds_key_file <- function() {
   file_name          = getOption("rcreds.key.file_name", default=".crypt_key.rds")
-  folder             = get_default_rcreds_key_folder() # OLD: getOption("rcreds.key.folder",    default="~/.rcreds/key_files")
+  folder             = get_default_rcreds_key_folder()
   file_full_path     = file.path(folder, file_name)
 
   return(file_full_path)
@@ -179,7 +178,7 @@ use_key <- function(key) {
 save_key <- function(
     file_full_path     = file.path(folder, file_name)
   , file_name          = getOption("rcreds.key.file_name", default=".crypt_key.rds")
-  , folder             = get_default_rcreds_key_folder() # OLD: getOption("rcreds.key.folder",    default="~/.rcreds/key_files")
+  , folder             = get_default_rcreds_key_folder()
   , key # no default value. If missing will be created using create_key()
   , bytes              = 32
   , depth              = 8
@@ -231,7 +230,7 @@ save_key <- function(
 read_key_from_file <- function(
     file_full_path = file.path(folder, file_name)
   , file_name      = getOption("rcreds.key.file_name", default=".crypt_key.rds")
-  , folder         = get_default_rcreds_key_folder() # OLD: getOption("rcreds.key.folder",    default="~/.rcreds/key_files")
+  , folder         = get_default_rcreds_key_folder()
   , create_if_not_exist = TRUE
   , showWarnings   = FALSE
   , verbose        = getOption("verbose.rcreds", default=TRUE)
