@@ -87,7 +87,8 @@
 #'    ## Default Folders need to be set. This shold be in an .Rprofile file
 #'    ### ---------------------------------------------- ###
 #'    ## generally use:  set_default_rcreds_ALL(parent_folder = "~/.rcreds/")
-#'    set_default_rcreds_ALL(parent_folder = file.path(tempdir(), ".rcreds/"), create_if_not_exist = TRUE)
+#'    set_default_rcreds_ALL(parent_folder = file.path(tempdir(), ".rcreds/"), 
+#'                           create_if_not_exist = TRUE)
 #'    ### ---------------------------------------------- ###
 #'
 #'    library(rcreds)
