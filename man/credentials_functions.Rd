@@ -143,29 +143,35 @@ use \code{write_db_credentials_to_file()} and \code{read_db_credentials_from_fil
 }
 \examples{
 
-  library(rcreds)
-
-  some_login_function <- function(username, password) {
-    ## does something with username/password
-    ## ... 
-  }
-
-  ## Default Folders need to be set. This shold be in an .Rprofile file
-  set_default_rcreds_folder(folder="~/.rcreds/db_credential_files", DB = TRUE)
-  set_default_rcreds_key_folder(folder="~/.rcreds/key_files")
-
-  ## ONE TIME, DO NOT SAVE THIS 
-  write_db_credentials_to_file(username="cosmo", password="still too many secrets"
-                             , port=1234, host="ec2-1234-567-89.us-west.compute.amazonaws.com")
-
-
-  ## SEPARATELY, in a new file:
-  credentials_list <- read_db_credentials_from_file(fail_if_cant_decrypt=FALSE, showWarnings=FALSE)
-  ## normally, leave the above flags as their default TRUE. Using FALSE for this example only.
-
-  some_login_function(username = credentials_list$user_name
-                    , password = credentials_list$password
-                     )
+ \dontrun{
+   library(rcreds)
+ 
+   some_login_function <- function(username, password) {
+     ## does something with username/password
+     ## ... 
+   }
+ 
+   ### ---------------------------------------------- ###
+   ## Default Folders need to be set. This shold be in an .Rprofile file
+   ### ---------------------------------------------- ###
+   ## generally use:  set_default_rcreds_ALL(parent_folder = "~/.rcreds/")
+   set_default_rcreds_ALL(parent_folder = file.path(tempdir(), ".rcreds/"), 
+                          create_if_not_exist = TRUE)
+   ### ---------------------------------------------- ###
+ 
+   ## ONE TIME, DO NOT SAVE THIS 
+   write_db_credentials_to_file(username="cosmo", password="still too many secrets"
+                              , port=1234, host="ec2-1234-567-89.us-west.compute.amazonaws.com")
+ 
+ 
+   ## SEPARATELY, in a new file:
+   credentials_list <- read_db_credentials_from_file(fail_if_cant_decrypt=FALSE, showWarnings=FALSE)
+   ## normally, leave the above flags as their default TRUE. Using FALSE for this example only.
+ 
+   some_login_function(username = credentials_list$user_name
+                     , password = credentials_list$password
+                      )
+ }
 
 
 }
