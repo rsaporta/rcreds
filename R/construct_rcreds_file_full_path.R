@@ -2,7 +2,6 @@
 #'
 #' Takes parts of a file name, info, and folder and creates a full path
 #'
-#' @param rcreds.file_name This is not a parameter name -- why does R Check think it is?
 #' @param file_name       string, cannot be empty  Filename with extension. Default is '.credentials.creds'
 #' @param folder          string, cannot be empty  Where file will be stored
 #' @param info.file_name  string, can    be empty. Prepended to file_name.            
