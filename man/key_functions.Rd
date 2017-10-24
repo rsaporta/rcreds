@@ -18,17 +18,16 @@ is.key_rcreds(key)
 
 save_key(file_full_path = file.path(folder, file_name),
   file_name = getOption("rcreds.key.file_name", default = ".crypt_key.rds"),
-  folder = getOption("rcreds.key.folder", default = "~/.rcreds/key_files"),
-  key, bytes = 32, depth = 8, seed = NULL, zArchive_existing = TRUE,
-  overwrite_existing = FALSE, showWarnings = TRUE,
-  allow_root_user = FALSE, verbose = getOption("verbose.rcreds", default =
-  TRUE))
+  folder = get_default_rcreds_key_folder(), key, bytes = 32, depth = 8,
+  seed = NULL, zArchive_existing = TRUE, overwrite_existing = FALSE,
+  showWarnings = TRUE, allow_root_user = FALSE,
+  verbose = getOption("verbose.rcreds", default = TRUE))
 
 read_key_from_file(file_full_path = file.path(folder, file_name),
   file_name = getOption("rcreds.key.file_name", default = ".crypt_key.rds"),
-  folder = getOption("rcreds.key.folder", default = "~/.rcreds/key_files"),
-  create_if_not_exist = TRUE, showWarnings = FALSE,
-  verbose = getOption("verbose.rcreds", default = TRUE))
+  folder = get_default_rcreds_key_folder(), create_if_not_exist = TRUE,
+  showWarnings = FALSE, verbose = getOption("verbose.rcreds", default =
+  TRUE))
 }
 \arguments{
 \item{bytes}{Number of bytes used for the key.
@@ -70,7 +69,7 @@ read_key_from_file(file_full_path = file.path(folder, file_name),
 
 \item{folder}{folder where the credentials will be written to or read from.
 
-              Defaults to: getOption(\\"rcreds.key.folder\\", default = \\"~/.rcreds/key_files\\")}
+              Defaults to: get_default_rcreds_key_folder()}
 
 \item{zArchive_existing}{A TRUE/FALSE flag.  If \code{file_full_path} already exist, should it be moved to a zArchive folder?
 
@@ -105,12 +104,13 @@ DETAILED DESCRIPTION of what these functions do
 }
 \examples{
 
+ \dontrun{
    ### ---------------------------------------------- ###
    ## Default Folders need to be set. This shold be in an .Rprofile file
    ### ---------------------------------------------- ###
-   rcreds::set_default_rcreds_folder(folder="~/.rcreds/credential_files", DB = FALSE)
-   rcreds::set_default_rcreds_folder(folder="~/.rcreds/db_credential_files", DB = TRUE)
-   rcreds::set_default_rcreds_key_folder(folder="~/.rcreds/key_files")
+   ## generally use:  set_default_rcreds_ALL(parent_folder = "~/.rcreds/")
+   set_default_rcreds_ALL(parent_folder = file.path(tempdir(), ".rcreds/"), 
+                          create_if_not_exist = TRUE)
    ### ---------------------------------------------- ###
 
    library(rcreds)
@@ -124,5 +124,6 @@ DETAILED DESCRIPTION of what these functions do
    key <- read_key_from_file(folder="different/key/location")
    creds <- read_credentials_from_file(key=key, fail_if_cant_decrypt=FALSE, showWarnings=FALSE)
    ## normally, leave the above flags as their default TRUE. Using FALSE for this example only.
+ }
 
 }

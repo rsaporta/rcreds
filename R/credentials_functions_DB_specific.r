@@ -4,7 +4,7 @@ read_db_credentials_from_file <- function(
     file_full_path     = "..auto.."
   , info.file_name     = ""
   , file_name          = getOption("rcreds.db.file_name", default=".db_credentials.creds")
-  , folder             = get_default_rcreds_folder(DB = TRUE) #getOption("rcreds.db.folder",    default="~/.rcreds/db_credential_files")
+  , folder             = get_default_rcreds_folder(DB = TRUE)
   , key                = read_key_from_file()
   , fail_if_cant_decrypt = TRUE
   , showWarnings       = TRUE
@@ -39,7 +39,7 @@ write_db_credentials_to_file <- function(
   , file_full_path     = "..auto.."
   , info.file_name     = ""
   , file_name          = getOption("rcreds.db.file_name", default=".db_credentials.creds")
-  , folder             = get_default_rcreds_folder(DB = TRUE) #getOption("rcreds.db.folder",    default="~/.rcreds/db_credential_files")
+  , folder             = get_default_rcreds_folder(DB = TRUE)
   , allow_root_user    = FALSE
   , zArchive_existing  = TRUE
   , overwrite_existing = FALSE
