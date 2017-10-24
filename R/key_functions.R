@@ -82,6 +82,7 @@
 #'
 #' @examples
 #' 
+#'  \dontrun{
 #'    ### ---------------------------------------------- ###
 #'    ## Default Folders need to be set. This shold be in an .Rprofile file
 #'    ### ---------------------------------------------- ###
@@ -100,6 +101,7 @@
 #'    key <- read_key_from_file(folder="different/key/location")
 #'    creds <- read_credentials_from_file(key=key, fail_if_cant_decrypt=FALSE, showWarnings=FALSE)
 #'    ## normally, leave the above flags as their default TRUE. Using FALSE for this example only.
+#'  }
 #'
 NULL
 

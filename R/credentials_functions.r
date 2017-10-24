@@ -113,6 +113,7 @@
 #'
 #' @examples
 #' 
+#'  \dontrun{
 #'    library(rcreds)
 #'  
 #'    some_login_function <- function(username, password) {
@@ -139,6 +140,7 @@
 #'    some_login_function(username = credentials_list$user_name
 #'                      , password = credentials_list$password
 #'                       )
+#'  }
 #' 
 #'
 NULL
