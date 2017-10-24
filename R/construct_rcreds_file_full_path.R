@@ -14,7 +14,7 @@
 #' 
 construct_rcreds_file_full_path <- function(
     file_name          = getOption("rcreds.file_name", default=".credentials.creds")
-  , folder             = get_default_rcreds_folder(DB=DB) #getOption("rcreds.folder",    default="~/.rcreds/credential_files")
+  , folder             = get_default_rcreds_folder(DB=DB)
   , info.file_name     = ""
   , DB                 = FALSE
 ) {

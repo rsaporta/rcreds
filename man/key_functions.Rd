@@ -18,17 +18,16 @@ is.key_rcreds(key)
 
 save_key(file_full_path = file.path(folder, file_name),
   file_name = getOption("rcreds.key.file_name", default = ".crypt_key.rds"),
-  folder = getOption("rcreds.key.folder", default = "~/.rcreds/key_files"),
-  key, bytes = 32, depth = 8, seed = NULL, zArchive_existing = TRUE,
-  overwrite_existing = FALSE, showWarnings = TRUE,
-  allow_root_user = FALSE, verbose = getOption("verbose.rcreds", default =
-  TRUE))
+  folder = get_default_rcreds_key_folder(), key, bytes = 32, depth = 8,
+  seed = NULL, zArchive_existing = TRUE, overwrite_existing = FALSE,
+  showWarnings = TRUE, allow_root_user = FALSE,
+  verbose = getOption("verbose.rcreds", default = TRUE))
 
 read_key_from_file(file_full_path = file.path(folder, file_name),
   file_name = getOption("rcreds.key.file_name", default = ".crypt_key.rds"),
-  folder = getOption("rcreds.key.folder", default = "~/.rcreds/key_files"),
-  create_if_not_exist = TRUE, showWarnings = FALSE,
-  verbose = getOption("verbose.rcreds", default = TRUE))
+  folder = get_default_rcreds_key_folder(), create_if_not_exist = TRUE,
+  showWarnings = FALSE, verbose = getOption("verbose.rcreds", default =
+  TRUE))
 }
 \arguments{
 \item{bytes}{Number of bytes used for the key.

@@ -64,7 +64,7 @@ Useful when using multiple files in a given folder.
 
 \item{folder}{folder where the credentials will be written to or read from.
 
-              Defaults to: getOption(\\"rcreds.folder\\", default = \\"~/.rcreds/credential_files\\")}
+              Defaults to: get_default_rcreds_folder(DB=FALSE)}
 
 \item{allow_root_user}{A TRUE/FALSE flag.  If FALSE and user is root, then writing and saving functions will fail
                     This is a safety to make sure the user understands they are operating under root.
