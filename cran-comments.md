@@ -1,17 +1,16 @@
 ## Package Name:  rcreds
 
 ## UPDATES SINCE PREVIOUS SUBMISSION
+* No longer writing to user's home directory, 
+   which was occurring in the vignette and examples
+* Removed erroneous documentation line
+
+## CHANGES AT PREVIOUS SUBMISSION
 * Addressed bug specific to Windows file structure
 * Added tests on Windows machine
 * Enhanced Tests
 * Minor enhancements on functions
-
-## CHANGES AT PREVIOUS SUBMISSION
 * Implemented setters/getters for default write-to folder
-* No longer writing to user's home directory
-* Cleaned up Description
-* Minor bug fixes
-* More tests via testthat
 
 ## Test environments
 * local OS X install, R 3.1.2
