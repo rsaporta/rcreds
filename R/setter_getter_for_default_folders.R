@@ -52,6 +52,8 @@
 #'     for the \code{clear_default_..} functions, the previously set value, invisibly.
 #'
 #' @examples
+#' 
+#'  \dontrun{
 #'    library(rcreds)
 #' 
 #'    set_default_rcreds_folder("~/.rcreds/credential_files")
@@ -75,6 +77,7 @@
 #'    get_default_rcreds_folder()
 #'    get_default_rcreds_folder(DB=TRUE)
 #'    get_default_rcreds_key_folder()
+#'  }
 #'
 NULL
 
