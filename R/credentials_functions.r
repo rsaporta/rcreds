@@ -37,7 +37,7 @@
 #'
 #' @param folder folder where the credentials will be written to or read from.
 #'
-#'               Defaults to: getOption(\\"rcreds.folder\\", default = \\"~/.rcreds/credential_files\\")
+#'               Defaults to: get_default_rcreds_folder(DB=FALSE)
 #'
 #' @param key A key object of class \code{"key_rcreds"} to be used for encrypting / decrypting. Passed to \code{digest::AES}.  
 #' 
@@ -113,29 +113,35 @@
 #'
 #' @examples
 #' 
-#'   library(rcreds)
-#' 
-#'   some_login_function <- function(username, password) {
-#'     ## does something with username/password
-#'     ## ... 
-#'   }
-#' 
-#'   ## Default Folders need to be set. This shold be in an .Rprofile file
-#'   set_default_rcreds_folder(folder="~/.rcreds/db_credential_files", DB = TRUE)
-#'   set_default_rcreds_key_folder(folder="~/.rcreds/key_files")
-#' 
-#'   ## ONE TIME, DO NOT SAVE THIS 
-#'   write_db_credentials_to_file(username="cosmo", password="still too many secrets"
-#'                              , port=1234, host="ec2-1234-567-89.us-west.compute.amazonaws.com")
-#' 
-#' 
-#'   ## SEPARATELY, in a new file:
-#'   credentials_list <- read_db_credentials_from_file(fail_if_cant_decrypt=FALSE, showWarnings=FALSE)
-#'   ## normally, leave the above flags as their default TRUE. Using FALSE for this example only.
-#' 
-#'   some_login_function(username = credentials_list$user_name
-#'                     , password = credentials_list$password
-#'                      )
+#'  \dontrun{
+#'    library(rcreds)
+#'  
+#'    some_login_function <- function(username, password) {
+#'      ## does something with username/password
+#'      ## ... 
+#'    }
+#'  
+#'    ### ---------------------------------------------- ###
+#'    ## Default Folders need to be set. This shold be in an .Rprofile file
+#'    ### ---------------------------------------------- ###
+#'    ## generally use:  set_default_rcreds_ALL(parent_folder = "~/.rcreds/")
+#'    set_default_rcreds_ALL(parent_folder = file.path(tempdir(), ".rcreds/"), 
+#'                           create_if_not_exist = TRUE)
+#'    ### ---------------------------------------------- ###
+#'  
+#'    ## ONE TIME, DO NOT SAVE THIS 
+#'    write_db_credentials_to_file(username="cosmo", password="still too many secrets"
+#'                               , port=1234, host="ec2-1234-567-89.us-west.compute.amazonaws.com")
+#'  
+#'  
+#'    ## SEPARATELY, in a new file:
+#'    credentials_list <- read_db_credentials_from_file(fail_if_cant_decrypt=FALSE, showWarnings=FALSE)
+#'    ## normally, leave the above flags as their default TRUE. Using FALSE for this example only.
+#'  
+#'    some_login_function(username = credentials_list$user_name
+#'                      , password = credentials_list$password
+#'                       )
+#'  }
 #' 
 #'
 NULL
@@ -162,7 +168,7 @@ write_credentials_to_file <- function(
   , file_full_path     = "..auto.."
   , info.file_name     = ""
   , file_name          = getOption("rcreds.file_name", default=".credentials.creds")
-  , folder             = get_default_rcreds_folder(DB=FALSE) # getOption("rcreds.folder",    default="~/.rcreds/credential_files")
+  , folder             = get_default_rcreds_folder(DB=FALSE)
   , allow_root_user    = FALSE
   , zArchive_existing  = TRUE
   , overwrite_existing = FALSE
@@ -272,11 +278,11 @@ read_credentials_from_file <- function(
     file_full_path     = "..auto.."
   , info.file_name     = ""
   , file_name          = getOption("rcreds.file_name", default=".credentials.creds")
-  , folder             = get_default_rcreds_folder(DB=FALSE) # getOption("rcreds.folder",    default="~/.rcreds/credential_files")
+  , folder             = get_default_rcreds_folder(DB=FALSE)
   , key                = read_key_from_file()
   , fail_if_cant_decrypt = TRUE
   , showWarnings       = TRUE
-  , verbose            = getOption("verbose.rcreds", default=TRUE) ## not yet used as of 2017-10-17
+  , verbose            = getOption("verbose.rcreds", default=TRUE) ## not yet used as of 2017-10-24
 ) {
   stopifnot(requireNamespace("digest"))
   stopifnot(requireNamespace("jsonlite"))

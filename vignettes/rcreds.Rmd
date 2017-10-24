@@ -29,6 +29,12 @@ Most comonly, a user will simply hardcode their credentials right into their cod
 
 We will assume that, by nature of searching out such a package we can avoid here the discussion of the _why_ to implement a different approach (even when _"I am the only one who will be using or accessing this"_) and simply move on to the _how_ to use.
 
+## Note on Documentation:
+
+Generally, a user will save their credentials to a folder in `~/.rcreds`
+We do not want to include that as the default folder in this vignette, as the vignette examples will write meaningless examples to the users home directory.
+We will use `CREDS_PARENT_FOLDER` in place of `~/.rcreds`.
+
 ## Usage
 
 Let's assume you have some function which requires the use of sensitive inputs. 
@@ -52,11 +58,16 @@ The user needs to tell `rcreds` where files should be written to and read from.
 This can go in your `~/.Rprofile` file.
 ```{r, echo=FALSE, results='asis'}
 
+## reminder, tempdir() is only for vignette. Normally use:
+#  CREDS_PARENT_FOLDER <- "~/.rcreds"
+CREDS_PARENT_FOLDER <- tempdir()
+
+
 library(rcreds)
 
-set_default_rcreds_folder("~/.rcreds/credential_files")
-set_default_rcreds_folder("~/.rcreds/db_credential_files", DB=TRUE)
-set_default_rcreds_key_folder(folder="~/.rcreds/key_files")
+set_default_rcreds_folder(file.path(CREDS_PARENT_FOLDER, "credential_files"))
+set_default_rcreds_folder(file.path(CREDS_PARENT_FOLDER, "db_credential_files"), DB=TRUE)
+set_default_rcreds_key_folder(folder = file.path(CREDS_PARENT_FOLDER, "key_files"))
 ```
 
 
@@ -65,10 +76,15 @@ set_default_rcreds_key_folder(folder="~/.rcreds/key_files")
 One time, write to disk
 ```{r, echo=FALSE, results='asis'}
 
-## NEEDED FOR VIGNETTE -- should be in an .Rprofile file
-rcreds::set_default_rcreds_folder("~/.rcreds/credential_files")
-rcreds::set_default_rcreds_folder("~/.rcreds/db_credential_files", DB=TRUE)
-rcreds::set_default_rcreds_key_folder(folder="~/.rcreds/key_files")
+## reminder, tempdir() is only for vignette. Normally use:
+#  CREDS_PARENT_FOLDER <- "~/.rcreds"
+CREDS_PARENT_FOLDER <- tempdir()
+
+## in your .Rprofile, you should set the default folders.
+## Replace CREDS_PARENT_FOLDER with correct folder, such as "~/.rcreds"
+rcreds::set_default_rcreds_folder(file.path(CREDS_PARENT_FOLDER, "credential_files"))
+rcreds::set_default_rcreds_folder(file.path(CREDS_PARENT_FOLDER, "db_credential_files"), DB=TRUE)
+rcreds::set_default_rcreds_key_folder(folder=file.path(CREDS_PARENT_FOLDER, "key_files"))
 
 library(rcreds)
 
@@ -87,8 +103,12 @@ save_key(key=key_object, zArchive_existing=FALSE, overwrite_existing=TRUE, verbo
 Then in a script that needs to use the credentials, read from disk and use the list elements.
 ```{r, echo=FALSE, results='asis'}
 
-key_file <- '~/.rcreds/key_files/.crypt_key.rds'
-creds_file <- "~/.rcreds/credential_files/for_app123_login.credentials.creds"
+## reminder, tempdir() is only for vignette. Normally use:
+#  CREDS_PARENT_FOLDER <- "~/.rcreds"
+CREDS_PARENT_FOLDER <- tempdir()
+
+key_file   <- file.path(CREDS_PARENT_FOLDER, "key_files", ".crypt_key.rds")
+creds_file <- file.path(CREDS_PARENT_FOLDER, "credential_files", "for_app123_login.credentials.creds")
 
 
 creds <- read_credentials_from_file(file_full_path=creds_file, key=key_file)

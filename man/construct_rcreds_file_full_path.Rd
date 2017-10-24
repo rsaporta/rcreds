@@ -18,8 +18,6 @@ construct_rcreds_file_full_path(file_name = getOption("rcreds.file_name",
 \item{DB}{TRUE/FALSE flag. Is the folder for the db credentials functions?
 
           Defaults to: FALSE}
-
-\item{rcreds.file_name}{This is not a parameter name -- why does R Check think it is?}
 }
 \value{
 The full file path

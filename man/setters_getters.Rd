@@ -76,6 +76,8 @@ Ideally, rcreds will be written to \code{~/.rcreds/}, but
   the package cannot set that as a default. The user must do so.
 }
 \examples{
+
+ \dontrun{
    library(rcreds)
 
    set_default_rcreds_folder("~/.rcreds/credential_files")
@@ -86,5 +88,19 @@ Ideally, rcreds will be written to \code{~/.rcreds/}, but
    db_creds_folder <- get_default_rcreds_folder(DB=TRUE)
    db_creds_folder
 
+   set_default_rcreds_key_folder("~/.rcreds/key_files")
+   rcreds_key_folder <- get_default_rcreds_key_folder()
+   rcreds_key_folder
+ 
+   ## ---------------------------------------------- ##
+
+   ## Alternatively, set them all in one shot
+   set_default_rcreds_ALL(parent_folder = "~/.rcreds")
+
+   ## All three values will be set
+   get_default_rcreds_folder()
+   get_default_rcreds_folder(DB=TRUE)
+   get_default_rcreds_key_folder()
+ }
 
 }
