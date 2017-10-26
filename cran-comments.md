@@ -4,6 +4,8 @@
 * No longer writing to user's home directory, 
    which was occurring in the vignette and examples
 * Removed erroneous documentation line
+* Error handling for corner cases
+* Additional Tests
 
 ## CHANGES AT PREVIOUS SUBMISSION
 * Addressed bug specific to Windows file structure
