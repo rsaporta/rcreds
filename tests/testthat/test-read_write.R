@@ -43,23 +43,28 @@ test_that(desc="DB Funcs", code={
   test_folder <- file.path(tempdir(), "rpkgs_test_folder", "rcreds")
   dir.create(test_folder, recursive = TRUE, showWarnings = FALSE)
 
-  ret <- write_db_credentials_to_file(
-      dbname = "this_is_the_db"
-    , port = 1234L
-    , host = "very graceful"
-    , username = "hopscotch"
-    , password = "hopgin"
-    , folder = test_folder
+  ## expect warning for writing NULL
+  expect_warning(regexp = "^At least one element being written is NULL.*", 
+    ret <- write_db_credentials_to_file(
+        dbname          = "this_is_the_db"
+      , port            = 1234L
+      , host            = "very graceful"
+      , username        = "hopscotch"
+      , password        = "hopgin"
+      , something_else  = list(testing = 1:5, more_stuff = LETTERS, null_value = NULL, value = "A")
+      , folder          = test_folder
+    )
   )
 
   received_value <- read_db_credentials_from_file(folder=test_folder)
 
   expected_value <- list(    
-      dbname = "this_is_the_db"
-    , host = "very graceful"
-    , port = 1234L
-    , username = "hopscotch"
-    , password = "hopgin"
+      dbname          = "this_is_the_db"
+    , host            = "very graceful"
+    , port            = 1234L
+    , username        = "hopscotch"
+    , password        = "hopgin"
+    , something_else  = list(testing = 1:5, more_stuff = LETTERS, null_value = structure(list(), .Names = character(0)), value = "A")
   )
 
   ## The ordering of the 
