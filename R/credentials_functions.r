@@ -173,6 +173,7 @@ write_credentials_to_file <- function(
   , zArchive_existing  = TRUE
   , overwrite_existing = FALSE
   , key                = read_key_from_file()
+  , showWarnings       = TRUE
   , verbose            = getOption("verbose.rcreds", default=TRUE)
 ) {
 
@@ -245,6 +246,9 @@ write_credentials_to_file <- function(
   ## ---------------------------------------------------------------------------- ##
 
 
+  if(.is_any_element_NULL(creds) && showWarnings)
+    warning("At least one element being written is NULL. Upon reading the file back into R, the NULLs will appear as `named list()`")
+
   creds_as_json_object <- jsonlite::toJSON(creds)
 
   ## For AWS encryption, text input must be a multiple of 16 bytes
@@ -313,13 +317,20 @@ read_credentials_from_file <- function(
   ## Since we had padded with zeros, remove those
   ## only remove zeros from start of creds
   creds <- creds[cumsum(creds) > 0]
-  json <- rawToChar(creds)
+  json <- try(rawToChar(creds), silent=TRUE)
 
-  ret <- try(jsonlite::fromJSON(json), silent=TRUE)
+  ## If a bad key, the parsing might fail on rawToChar, specifically with errors like "embeded nul in string"
+  ## Capture the error and assign to ret, which will be handled by the user-defined error handling
+  if (inherits(json, "try-error")) {
+    ret <- json
+  } else {
+    ret <- try(jsonlite::fromJSON(json), silent=TRUE)
+  }
+
 
   if (inherits(ret, "try-error")) {
     err_msg <- as.character(ret)
-    if (grepl("invalid char in json text", err_msg))
+    if (grepl("(invalid char in json text|embedded nul in string: )", err_msg))
       msg <- "Could not decrypt the file. This is probably due to the wrong key being used."
     else
       msg <- paste0("Parsing the text failed with the following error:\n\n", err_msg)

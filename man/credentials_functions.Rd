@@ -14,7 +14,8 @@ write_credentials_to_file(..., file_full_path = "..auto..",
   ".credentials.creds"), folder = get_default_rcreds_folder(DB = FALSE),
   allow_root_user = FALSE, zArchive_existing = TRUE,
   overwrite_existing = FALSE, key = read_key_from_file(),
-  verbose = getOption("verbose.rcreds", default = TRUE))
+  showWarnings = TRUE, verbose = getOption("verbose.rcreds", default =
+  TRUE))
 
 read_credentials_from_file(file_full_path = "..auto..", info.file_name = "",
   file_name = getOption("rcreds.file_name", default = ".credentials.creds"),
@@ -85,6 +86,10 @@ Useful when using multiple files in a given folder.
 
            Defaults to: read_key_from_file()}
 
+\item{showWarnings}{A TRUE/FALSE flag.  If FALSE, warnings will be silenced
+
+                          Defaults to: TRUE}
+
 \item{verbose}{A TRUE/FALSE flag.
 
                Defaults to: getOption(\\"verbose.rcreds\\", default = TRUE)
@@ -98,10 +103,6 @@ The \code{read_..} functions read said file, and given (the same) key object, de
 The corresponding \code{.._db_..} files are wrappers that explicitly list the main five parameters used for database connections, with comonly used defaults. Namely, \code{host}, \code{username}, \code{password}, \code{port}, and \code{database}.}
 
 \item{fail_if_cant_decrypt}{A TRUE/FALSE flag.  If set to TRUE, the reading functions will fail on error. If set to FALSE, NULL will be returned and a graceful exit will happen (with a possible warning if \code{showWarnings} is TRUE.
-
-                          Defaults to: TRUE}
-
-\item{showWarnings}{A TRUE/FALSE flag.  If FALSE, warnings will be silenced
 
                           Defaults to: TRUE}
 

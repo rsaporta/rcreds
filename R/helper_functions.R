@@ -64,3 +64,7 @@
   return(invisible(NULL))
 }
 
+.is_any_element_NULL <- function(L, recursive=TRUE) {
+  is.null(L) || (is.list(L) && any(vapply(L, FUN=.is_any_element_NULL, FUN.VALUE=logical(1L),  recursive=recursive)))
+}
+
