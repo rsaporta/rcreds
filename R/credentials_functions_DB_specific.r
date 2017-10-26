@@ -2,14 +2,14 @@
 #' @importFrom collectArgs collectArgs
 #' @export
 read_db_credentials_from_file <- function(
-    file_full_path     = "..auto.."
-  , info.file_name     = ""
-  , file_name          = getOption("rcreds.db.file_name", default=".db_credentials.creds")
-  , folder             = get_default_rcreds_folder(DB = TRUE)
-  , key                = read_key_from_file()
+    file_full_path       = "..auto.."
+  , info.file_name       = ""
+  , file_name            = getOption("rcreds.db.file_name", default=".db_credentials.creds")
+  , folder               = get_default_rcreds_folder(DB=TRUE)
+  , key                  = read_key_from_file()
   , fail_if_cant_decrypt = TRUE
-  , showWarnings       = TRUE
-  , verbose            = getOption("verbose.rcreds", default=TRUE)  
+  , showWarnings         = TRUE
+  , verbose              = getOption("verbose.rcreds", default=TRUE)
 ) {
 
 
