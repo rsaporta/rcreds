@@ -1,11 +1,11 @@
 Package: rcreds
 Title: Securely Use Credentials Within R Scripts
-Version: 0.6.6
+Version: 0.7.7
 Authors@R: c(person(given="Rick", family="Saporta", email="RickSaporta@gmail.com",  role=c("aut","cre"), comment=NULL)
            , person(given="Mike", family="Reca",    email="michael.reca@vydia.com", role=c("ctb"),       comment=NULL)
     )
 Description: Tools to write a list of credentials to an encrypted file and later read from that file into R. The goal is to have a useful alternative to including username/passwords as part of a script or even stored in the clear in a separate text file. Additional tools provided which are specific for connecting to a database.
-    Current stable version (committed on October 26, 2017).
+    Unstable development version (first committed on October 26, 2017).
 Depends:
     R (>= 3.3.1)
 License: MIT + file LICENSE
