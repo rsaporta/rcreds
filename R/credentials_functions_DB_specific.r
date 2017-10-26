@@ -1,4 +1,5 @@
 #' @rdname credentials_functions
+#' @importFrom collectArgs collectArgs
 #' @export
 read_db_credentials_from_file <- function(
     file_full_path     = "..auto.."
@@ -12,6 +13,8 @@ read_db_credentials_from_file <- function(
 ) {
 
 
+  stopifnot(requireNamespace("collectArgs"))
+
   ## Create 'file_full_path' if auto.  Otherwise, warn when any pieces were given explicitly.
   ## --------------------------------------------------------------------------------- ##
   if (isTRUE(file_full_path == "..auto..")) {
@@ -22,7 +25,7 @@ read_db_credentials_from_file <- function(
   }
   ## --------------------------------------------------------------------------------- ##
 
-  args <- collectArgs(except=c("folder", "info.file_name", "file_name"))
+  args <- collectArgs::collectArgs(except=c("folder", "info.file_name", "file_name"))
   do.call(read_credentials_from_file, args)
 }
 
@@ -52,6 +55,7 @@ write_db_credentials_to_file <- function(
 
   stopifnot(requireNamespace("digest"))
   stopifnot(requireNamespace("jsonlite"))
+  stopifnot(requireNamespace("collectArgs"))
 
   ## Create 'file_full_path' if auto.  Otherwise, warn when any pieces were given explicitly.
   ## --------------------------------------------------------------------------------- ##
@@ -64,7 +68,7 @@ write_db_credentials_to_file <- function(
   ## --------------------------------------------------------------------------------- ##
 
   
-  args <- collectArgs(except=c("folder", "info.file_name", "file_name"))
+  args <- collectArgs::collectArgs(except=c("folder", "info.file_name", "file_name"))
 
   ## Ensure ordering of args
   first_args <- c("dbname", "host", "port", "username", "password")
