@@ -30,7 +30,7 @@
 #'
 #'                        Defaults to: TRUE
 #'
-#' @param create_if_not_exist If folder does not exist, should it be created.
+#' @param create_if_not_exist If folder does not exist, should it be created. Will create the *FOLDERS*  (not the keys or creds files themselves)
 #'
 #'                            Defaults to: FALSE
 #' 
@@ -318,7 +318,7 @@ set_default_rcreds_ALL <- function(parent_folder, create_if_not_exist=FALSE, sho
   if (verbose) {
     whitespace <- rep(" ", nchar(parent_folder)-1) %>% paste0(collapse="")
     cat(
-      "Will set", " (and possible create)", " three subfolders in the parent_folder", "\n"
+      "Will set", " (and possibly create)", " three subfolders in the parent_folder", "\n"
     , "     ", parent_folder, "\n"
     , "     ", whitespace, "|-  /db_credential_files/", "\n"
     , "     ", whitespace, "|-  /credential_files/", "\n"
